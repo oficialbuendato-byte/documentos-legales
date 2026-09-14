@@ -1,536 +1,521 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
   <meta
-    name="description"
-    content="Buen Dato conecta recomendaciones y contenido útil para la comunidad."
-  >
-  <title>Buen Dato | Recomendaciones útiles</title>
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
-  <link rel="stylesheet" href="estilos.css">
+  <title>Buen Dato - Iniciar sesión</title>
 
   <style>
-    /*
-     * Estilos específicos para el acceso con TikTok
-     */
-
-    #tiktok-login-container {
-      width: 100%;
-      max-width: 430px;
-      margin-top: 24px;
-    }
-
-    .boton-tiktok {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
+    * {
       box-sizing: border-box;
-      border: 0;
-      cursor: pointer;
-      text-decoration: none;
     }
 
-    .tiktok-icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 25px;
-      height: 25px;
-      font-size: 24px;
-      line-height: 1;
-      font-weight: bold;
-    }
-
-    .tiktok-user-card {
+    body {
+      margin: 0;
+      min-height: 100vh;
       display: flex;
       align-items: center;
-      gap: 14px;
+      justify-content: center;
+      padding: 24px;
+      background: #f4f6f8;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #202124;
+    }
+
+    .login-card {
       width: 100%;
-      box-sizing: border-box;
-      padding: 14px 18px;
-      border-radius: 16px;
-      background: #111111;
-      color: #ffffff;
-      box-shadow:
-        5px 5px 0 #fe2c55,
-        -5px -5px 0 #25f4ee;
+      max-width: 420px;
+      padding: 32px 26px;
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.10);
+      text-align: center;
     }
 
-    .tiktok-user-avatar {
-      width: 58px;
-      height: 58px;
-      flex: 0 0 58px;
-      border: 2px solid #25f4ee;
+    .logo {
+      width: 82px;
+      height: 82px;
+      margin: 0 auto 18px;
+      object-fit: contain;
       border-radius: 50%;
-      background: #333333;
-      object-fit: cover;
     }
 
-    .tiktok-user-info {
-      min-width: 0;
-      text-align: left;
+    h1 {
+      margin: 0 0 10px;
+      font-size: 26px;
     }
 
-    .tiktok-user-label {
-      margin: 0 0 5px;
-      color: #25f4ee;
-      font-size: 12px;
-      font-weight: bold;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+    p {
+      margin: 0 0 24px;
+      color: #666;
+      line-height: 1.5;
     }
 
-    .tiktok-user-name {
-      margin: 0;
-      overflow: hidden;
-      color: #ffffff;
-      font-size: 17px;
-      font-weight: bold;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .tiktok-logout-button {
-      display: inline-block;
-      margin-top: 14px;
-      padding: 8px 14px;
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      border-radius: 999px;
-      background: transparent;
+    .tiktok-button {
+      width: 100%;
+      border: 0;
+      border-radius: 10px;
+      padding: 15px 20px;
+      background: #000000;
       color: #ffffff;
       cursor: pointer;
-      font-size: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      transition: opacity 0.2s ease, transform 0.2s ease;
     }
 
-    .tiktok-logout-button:hover {
-      background: rgba(255, 255, 255, 0.12);
+    .tiktok-button:hover {
+      opacity: 0.85;
+      transform: translateY(-1px);
     }
 
-    .tiktok-error {
-      margin-top: 12px;
-      color: #fe2c55;
+    .tiktok-button:disabled {
+      opacity: 0.6;
+      cursor: wait;
+      transform: none;
+    }
+
+    .profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .profile-avatar {
+      width: 96px;
+      height: 96px;
+      margin-bottom: 16px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #e8eaed;
+      border: 3px solid #eeeeee;
+    }
+
+    .profile-name {
+      margin: 0 0 20px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .logout-button {
+      width: 100%;
+      border: 1px solid #d93025;
+      border-radius: 10px;
+      padding: 12px 18px;
+      background: #ffffff;
+      color: #d93025;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .logout-button:hover {
+      background: #fff3f2;
+    }
+
+    .message {
+      min-height: 20px;
+      margin-top: 16px;
       font-size: 14px;
+      color: #666;
+    }
+
+    .message.error {
+      color: #c5221f;
+    }
+
+    .message.success {
+      color: #188038;
+    }
+
+    .hidden {
+      display: none !important;
     }
   </style>
 </head>
 
 <body>
-  <header class="encabezado">
-    <a class="logo" href="index.html">Buen Dato</a>
+  <main class="login-card">
+    <!-- Puedes reemplazar esta imagen por tu logo -->
+    <img
+      class="logo"
+      src="https://legal.somosbuendato.com/favicon.ico"
+      alt="Buen Dato"
+      onerror="this.style.display='none'"
+    />
 
-    <nav aria-label="Navegación principal">
-      <a href="#como-funciona">Cómo funciona</a>
-      <a href="#privacidad">Privacidad</a>
-    </nav>
-  </header>
+    <h1>Bienvenido a Buen Dato</h1>
 
-  <main>
-    <section class="hero">
-      <div class="hero-contenido">
-        <span class="etiqueta">Contenido útil para la comunidad</span>
+    <p id="description">
+      Inicia sesión con TikTok para continuar.
+    </p>
 
-        <h1>Descubre y comparte un buen dato.</h1>
-
-        <p>
-          Buen Dato es una plataforma para encontrar recomendaciones,
-          ideas y contenido interesante compartido por la comunidad.
-        </p>
-
-        <!--
-          Este contenedor es reemplazado por la tarjeta del usuario
-          después de recibir correctamente el mensaje desde n8n.
-        -->
-        <div id="tiktok-login-container">
-          <button
-            id="boton-login-tiktok"
-            class="boton boton-tiktok"
-            type="button"
-          >
-            <span class="tiktok-icon" aria-hidden="true">♪</span>
-            <span>Continuar con TikTok</span>
-          </button>
-        </div>
-
-        <p class="nota">
-          Al continuar, podrás autorizar de forma segura la conexión con TikTok.
-        </p>
-      </div>
-
-      <div
-        class="tarjeta-presentacion"
-        aria-label="Presentación de Buen Dato"
+    <section id="tiktok-login-container">
+      <button
+        id="boton-login-tiktok"
+        class="tiktok-button"
+        type="button"
       >
-        <div class="circulo">BD</div>
-        <h2>Buen Dato</h2>
-        <p>Recomendaciones que vale la pena conocer.</p>
-      </div>
-    </section>
+        Continuar con TikTok
+      </button>
 
-    <section id="como-funciona" class="seccion">
-      <span class="etiqueta">Proceso sencillo</span>
-
-      <h2>¿Cómo funciona?</h2>
-
-      <div class="pasos">
-        <article class="paso">
-          <strong>01</strong>
-          <h3>Autoriza</h3>
-          <p>
-            Conecta tu cuenta de TikTok mediante el flujo oficial de autorización.
-          </p>
-        </article>
-
-        <article class="paso">
-          <strong>02</strong>
-          <h3>Conecta</h3>
-          <p>
-            Buen Dato procesa únicamente los permisos aprobados para la aplicación.
-          </p>
-        </article>
-
-        <article class="paso">
-          <strong>03</strong>
-          <h3>Descubre</h3>
-          <p>
-            Accede a una experiencia de recomendaciones y contenido útil.
-          </p>
-        </article>
-      </div>
-    </section>
-
-    <section class="seccion aviso">
-      <h2>Integración segura</h2>
-
-      <p>
-        Esta aplicación utiliza la autorización oficial de TikTok.
-        No solicitamos contraseñas ni mostramos credenciales privadas.
-      </p>
-    </section>
-
-    <section id="privacidad" class="seccion legal-resumen">
-      <h2>Información legal</h2>
-
-      <p>
-        Consulta cómo protegemos tus datos y cómo puedes solicitar su eliminación.
-      </p>
-
-      <div class="enlaces-legales">
-        <a href="privacidad.html">Política de privacidad</a>
-        <a href="terminos.html">Términos de servicio</a>
-        <a href="eliminacion-datos.html">Eliminar mis datos</a>
-      </div>
+      <div id="message" class="message" role="status"></div>
     </section>
   </main>
 
-  <footer class="pie">
-    <p>
-      © <span id="anio"></span> Buen Dato. Todos los derechos reservados.
-    </p>
-
-    <div>
-      <a href="privacidad.html">Privacidad</a>
-      <a href="terminos.html">Términos</a>
-      <a href="eliminacion-datos.html">Eliminar datos</a>
-    </div>
-  </footer>
-
   <script>
-    "use strict";
+    (() => {
+      "use strict";
 
-    /*
-     * URL que inicia el flujo de autorización en n8n.
-     */
-    const URL_AUTORIZACION_TIKTOK =
-      "https://n8n.somosbuendato.com/webhook/tiktok/callback";
+      /*
+       * Este es el webhook que inicia el proceso OAuth.
+       *
+       * NO debe ser /callback.
+       * El endpoint /callback solo debe ser utilizado por TikTok
+       * después de la autorización.
+       */
+      const URL_AUTORIZACION_TIKTOK =
+        "https://n8n.somosbuendato.com/webhook/tiktok/start";
 
-    /*
-     * Origen autorizado para recibir mensajes.
-     */
-    const ORIGEN_N8N =
-      "https://n8n.somosbuendato.com";
+      /*
+       * Este debe coincidir con el targetOrigin usado en n8n:
+       *
+       * window.opener.postMessage(datos, "https://legal.somosbuendato.com")
+       */
+      const ORIGEN_N8N =
+        "https://n8n.somosbuendato.com";
 
-    /*
-     * Clave utilizada para conservar la sesión localmente.
-     */
-    const CLAVE_SESION_TIKTOK =
-      "buen_dato_tiktok_usuario";
-
-    const contenedorLogin =
-      document.getElementById("tiktok-login-container");
-
-    const elementoAnio =
-      document.getElementById("anio");
-
-    if (elementoAnio) {
-      elementoAnio.textContent = new Date().getFullYear();
-    }
-
-    /*
-     * Escapa texto antes de insertarlo en el HTML.
-     */
-    function escaparHTML(valor) {
-      return String(valor || "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-    }
-
-    /*
-     * Abre el flujo OAuth de TikTok en una ventana separada.
-     */
-    function abrirLoginTikTok() {
-      const ancho = 600;
-      const alto = 750;
-
-      const izquierda =
-        window.screenX + (window.outerWidth - ancho) / 2;
-
-      const arriba =
-        window.screenY + (window.outerHeight - alto) / 2;
-
-      const popup = window.open(
-        URL_AUTORIZACION_TIKTOK,
-        "buen_dato_tiktok_login",
-        [
-          "width=" + ancho,
-          "height=" + alto,
-          "left=" + Math.max(0, izquierda),
-          "top=" + Math.max(0, arriba),
-          "resizable=yes",
-          "scrollbars=yes",
-          "toolbar=no",
-          "menubar=no",
-          "location=yes",
-          "status=no"
-        ].join(",")
-      );
-
-      if (!popup) {
-        alert(
-          "El navegador bloqueó la ventana emergente. " +
-          "Permite las ventanas emergentes para continuar con TikTok."
-        );
-
-        return;
-      }
-
-      popup.focus();
-    }
-
-    /*
-     * Renderiza el botón de inicio de sesión.
-     */
-    function mostrarBotonLogin() {
-      contenedorLogin.innerHTML = `
-        <button
-          id="boton-login-tiktok"
-          class="boton boton-tiktok"
-          type="button"
-        >
-          <span class="tiktok-icon" aria-hidden="true">♪</span>
-          <span>Continuar con TikTok</span>
-        </button>
-      `;
+      const CLAVE_SESION =
+        "buen_dato_tiktok_usuario";
 
       const botonLogin =
         document.getElementById("boton-login-tiktok");
 
-      if (botonLogin) {
-        botonLogin.addEventListener(
-          "click",
-          abrirLoginTikTok
-        );
+      const contenedor =
+        document.getElementById("tiktok-login-container");
+
+      const descripcion =
+        document.getElementById("description");
+
+      const mensaje =
+        document.getElementById("message");
+
+      let ventanaPopup = null;
+
+      function mostrarMensaje(texto, tipo = "") {
+        mensaje.textContent = texto;
+        mensaje.className = "message";
+
+        if (tipo) {
+          mensaje.classList.add(tipo);
+        }
       }
-    }
 
-    /*
-     * Elimina los datos locales de la sesión.
-     */
-    function cerrarSesionTikTok() {
-      localStorage.removeItem(CLAVE_SESION_TIKTOK);
-      mostrarBotonLogin();
-    }
+      function escaparHTML(valor) {
+        const elemento = document.createElement("div");
+        elemento.textContent = valor == null ? "" : String(valor);
+        return elemento.innerHTML;
+      }
 
-    /*
-     * Renderiza el usuario recibido desde n8n.
-     */
-    function mostrarUsuario(usuario) {
-      const nombre =
-        usuario.display_name ||
-        usuario.displayName ||
-        usuario.username ||
-        "Usuario de TikTok";
+      function obtenerValor(datos, posiblesNombres) {
+        for (const nombre of posiblesNombres) {
+          if (
+            datos &&
+            datos[nombre] !== undefined &&
+            datos[nombre] !== null &&
+            datos[nombre] !== ""
+          ) {
+            return datos[nombre];
+          }
+        }
 
-      const avatar =
-        usuario.avatar_url ||
-        usuario.avatarUrl ||
-        usuario.avatar ||
-        "";
+        return "";
+      }
 
-      const nombreSeguro =
-        escaparHTML(nombre);
+      function normalizarDatos(datosRecibidos) {
+        let datos = datosRecibidos;
 
-      const avatarSeguro =
-        escaparHTML(avatar);
+        /*
+         * Permite recibir directamente el objeto o un objeto
+         * dentro de data, user o usuario.
+         */
+        if (datos && typeof datos === "object") {
+          if (datos.data && typeof datos.data === "object") {
+            datos = datos.data;
+          } else if (datos.user && typeof datos.user === "object") {
+            datos = datos.user;
+          } else if (
+            datos.usuario &&
+            typeof datos.usuario === "object"
+          ) {
+            datos = datos.usuario;
+          }
+        }
 
-      const imagenAvatar = avatarSeguro
-        ? `
-          <img
-            class="tiktok-user-avatar"
-            src="${avatarSeguro}"
-            alt="Avatar de ${nombreSeguro}"
-            onerror="this.style.display='none'"
-          >
-        `
-        : `
-          <div
-            class="tiktok-user-avatar"
-            aria-hidden="true"
-          ></div>
-        `;
+        const nombre = obtenerValor(datos, [
+          "display_name",
+          "displayName",
+          "nickname",
+          "name",
+          "nombre"
+        ]);
 
-      contenedorLogin.innerHTML = `
-        <div class="tiktok-user-card">
-          ${imagenAvatar}
+        const avatar = obtenerValor(datos, [
+          "avatar_url",
+          "avatarUrl",
+          "avatar",
+          "profile_image",
+          "profile_image_url",
+          "foto"
+        ]);
 
-          <div class="tiktok-user-info">
-            <p class="tiktok-user-label">
-              TikTok conectado
-            </p>
+        return {
+          display_name: nombre || "Usuario de TikTok",
+          avatar_url: avatar || "",
+          open_id: obtenerValor(datos, [
+            "open_id",
+            "openId",
+            "id"
+          ])
+        };
+      }
 
-            <p class="tiktok-user-name">
+      function mostrarUsuario(datosRecibidos) {
+        const usuario = normalizarDatos(datosRecibidos);
+
+        localStorage.setItem(
+          CLAVE_SESION,
+          JSON.stringify(usuario)
+        );
+
+        const nombreSeguro =
+          escaparHTML(usuario.display_name);
+
+        const avatarSeguro =
+          escaparHTML(usuario.avatar_url);
+
+        const avatarHTML = usuario.avatar_url
+          ? `
+            <img
+              class="profile-avatar"
+              src="${avatarSeguro}"
+              alt="Foto de perfil"
+              referrerpolicy="no-referrer"
+              onerror="this.style.display='none'"
+            />
+          `
+          : "";
+
+        contenedor.innerHTML = `
+          <div class="profile">
+            ${avatarHTML}
+            <h2 class="profile-name">
               ${nombreSeguro}
-            </p>
+            </h2>
 
             <button
-              id="boton-cerrar-sesion-tiktok"
-              class="tiktok-logout-button"
+              id="cerrar-sesion-tiktok"
+              class="logout-button"
               type="button"
             >
               Cerrar sesión
             </button>
           </div>
-        </div>
-      `;
+        `;
 
-      const botonCerrarSesion =
-        document.getElementById(
-          "boton-cerrar-sesion-tiktok"
-        );
+        descripcion.textContent =
+          "Tu cuenta de TikTok está vinculada correctamente.";
 
-      if (botonCerrarSesion) {
+        const botonCerrarSesion =
+          document.getElementById("cerrar-sesion-tiktok");
+
         botonCerrarSesion.addEventListener(
           "click",
-          cerrarSesionTikTok
-        );
-      }
-    }
-
-    /*
-     * Recibe el mensaje enviado por el popup de n8n.
-     *
-     * Formato esperado:
-     *
-     * {
-     *   type: "TIKTOK_LOGIN_EXITOSO",
-     *   user: {
-     *     display_name: "...",
-     *     avatar_url: "..."
-     *   }
-     * }
-     */
-    window.addEventListener("message", function (evento) {
-      if (evento.origin !== ORIGEN_N8N) {
-        console.warn(
-          "Mensaje rechazado desde:",
-          evento.origin
-        );
-
-        return;
-      }
-
-      if (!evento.data) {
-        return;
-      }
-
-      if (
-        evento.data.type !==
-        "TIKTOK_LOGIN_EXITOSO"
-      ) {
-        return;
-      }
-
-      const usuario =
-        evento.data.user ||
-        evento.data.usuario ||
-        evento.data.data;
-
-      if (!usuario || typeof usuario !== "object") {
-        console.error(
-          "El mensaje de TikTok no contiene un usuario válido."
-        );
-
-        return;
-      }
-
-      try {
-        localStorage.setItem(
-          CLAVE_SESION_TIKTOK,
-          JSON.stringify(usuario)
-        );
-      } catch (error) {
-        console.error(
-          "No se pudo guardar la sesión:",
-          error
+          cerrarSesion
         );
       }
 
-      mostrarUsuario(usuario);
-    });
+      function cerrarSesion() {
+        localStorage.removeItem(CLAVE_SESION);
 
-    /*
-     * Recupera la sesión guardada al cargar la página.
-     */
-    (function cargarSesionGuardada() {
-      try {
-        const usuarioGuardado =
-          localStorage.getItem(CLAVE_SESION_TIKTOK);
+        contenedor.innerHTML = `
+          <button
+            id="boton-login-tiktok"
+            class="tiktok-button"
+            type="button"
+          >
+            Continuar con TikTok
+          </button>
 
-        if (!usuarioGuardado) {
-          mostrarBotonLogin();
+          <div id="message" class="message" role="status"></div>
+        `;
+
+        descripcion.textContent =
+          "Inicia sesión con TikTok para continuar.";
+
+        window.location.reload();
+      }
+
+      function restaurarSesion() {
+        const sesionGuardada =
+          localStorage.getItem(CLAVE_SESION);
+
+        if (!sesionGuardada) {
           return;
         }
 
-        const usuario =
-          JSON.parse(usuarioGuardado);
+        try {
+          const usuario =
+            JSON.parse(sesionGuardada);
+
+          if (usuario && typeof usuario === "object") {
+            mostrarUsuario(usuario);
+          }
+        } catch (error) {
+          console.error(
+            "No se pudo restaurar la sesión:",
+            error
+          );
+
+          localStorage.removeItem(CLAVE_SESION);
+        }
+      }
+
+      function abrirLoginTikTok() {
+        mostrarMensaje("");
+
+        const ancho = 600;
+        const alto = 750;
+
+        const izquierda =
+          window.screenX +
+          Math.max(
+            0,
+            (window.outerWidth - ancho) / 2
+          );
+
+        const superior =
+          window.screenY +
+          Math.max(
+            0,
+            (window.outerHeight - alto) / 2
+          );
+
+        ventanaPopup = window.open(
+          URL_AUTORIZACION_TIKTOK,
+          "buen_dato_tiktok_login",
+          [
+            `width=${ancho}`,
+            `height=${alto}`,
+            `left=${izquierda}`,
+            `top=${superior}`,
+            "resizable=yes",
+            "scrollbars=yes",
+            "noopener=no"
+          ].join(",")
+        );
+
+        if (!ventanaPopup) {
+          mostrarMensaje(
+            "El navegador bloqueó la ventana emergente. Permite los popups para este sitio.",
+            "error"
+          );
+
+          return;
+        }
+
+        botonLogin.disabled = true;
+        botonLogin.textContent =
+          "Esperando autorización...";
+
+        const comprobarPopup = setInterval(() => {
+          if (
+            ventanaPopup &&
+            ventanaPopup.closed
+          ) {
+            clearInterval(comprobarPopup);
+
+            if (
+              !localStorage.getItem(CLAVE_SESION)
+            ) {
+              botonLogin.disabled = false;
+              botonLogin.textContent =
+                "Continuar con TikTok";
+            }
+          }
+        }, 1000);
+      }
+
+      /*
+       * Recibe el mensaje enviado desde el callback de n8n.
+       */
+      window.addEventListener("message", (evento) => {
+        if (evento.origin !== ORIGEN_N8N) {
+          console.warn(
+            "Mensaje rechazado por origen:",
+            evento.origin
+          );
+
+          return;
+        }
+
+        const datos = evento.data || {};
+
+        /*
+         * Acepta estas variantes:
+         *
+         * { type: "TIKTOK_LOGIN_EXITOSO", ... }
+         * { tipo: "TIKTOK_LOGIN_EXITOSO", ... }
+         * { event: "TIKTOK_LOGIN_EXITOSO", ... }
+         * { success: true, ... }
+         */
+        const tipoMensaje =
+          datos.type ||
+          datos.tipo ||
+          datos.event ||
+          datos.action ||
+          "";
+
+        const loginExitoso =
+          tipoMensaje === "TIKTOK_LOGIN_EXITOSO" ||
+          tipoMensaje === "TIKTOK_LOGIN_SUCCESS" ||
+          datos.success === true ||
+          datos.success === "true";
+
+        if (!loginExitoso) {
+          console.warn(
+            "Mensaje recibido, pero no corresponde a un login exitoso:",
+            datos
+          );
+
+          return;
+        }
+
+        mostrarUsuario(datos);
+
+        mostrarMensaje(
+          "Inicio de sesión exitoso.",
+          "success"
+        );
 
         if (
-          !usuario ||
-          typeof usuario !== "object"
+          ventanaPopup &&
+          !ventanaPopup.closed
         ) {
-          mostrarBotonLogin();
-          return;
+          ventanaPopup.close();
         }
+      });
 
-        mostrarUsuario(usuario);
-      } catch (error) {
-        console.error(
-          "No se pudo recuperar la sesión de TikTok:",
-          error
-        );
+      botonLogin.addEventListener(
+        "click",
+        abrirLoginTikTok
+      );
 
-        localStorage.removeItem(
-          CLAVE_SESION_TIKTOK
-        );
-
-        mostrarBotonLogin();
-      }
+      restaurarSesion();
     })();
   </script>
 </body>
