@@ -1,22 +1,31 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
-  <title>Buen Dato | Información legal</title>
+  <title>Buen Dato | Iniciar sesión</title>
+
+  <meta
+    name="description"
+    content="Accede a Buen Dato utilizando tu cuenta de TikTok."
+  />
 
   <style>
     :root {
-      --azul: #173b67;
-      --azul-hover: #0f2c4f;
-      --fondo: #f4f7fb;
-      --texto: #1f2937;
-      --texto-suave: #667085;
-      --borde: #dce3ec;
-      --blanco: #ffffff;
-      --rojo: #b42318;
-      --verde: #087443;
+      --fondo: #f5f7fb;
+      --superficie: #ffffff;
+      --texto: #172033;
+      --texto-suave: #657089;
+      --primario: #111827;
+      --primario-hover: #263247;
+      --borde: #e3e8f0;
+      --peligro: #c62828;
+      --sombra: 0 18px 45px rgba(20, 35, 70, 0.1);
+      --radio: 18px;
     }
 
     * {
@@ -30,37 +39,32 @@
     body {
       margin: 0;
       min-width: 320px;
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--texto);
       background: var(--fondo);
-      line-height: 1.6;
+      color: var(--texto);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.5;
     }
 
     a {
-      color: var(--azul);
-      font-weight: 600;
-    }
-
-    .barra-superior {
-      background: var(--azul);
-      color: white;
-      padding: 14px 20px;
-      text-align: center;
-      font-size: 14px;
+      color: inherit;
     }
 
     .contenedor {
-      width: min(100% - 32px, 1080px);
+      width: min(1120px, calc(100% - 40px));
       margin: 0 auto;
     }
 
-    header {
-      background: var(--blanco);
+    .barra-navegacion {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.94);
       border-bottom: 1px solid var(--borde);
+      backdrop-filter: blur(12px);
     }
 
-    .navegacion {
-      min-height: 78px;
+    .barra-interior {
+      min-height: 72px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -68,114 +72,195 @@
     }
 
     .marca {
-      color: var(--azul);
-      text-decoration: none;
-      font-size: 25px;
+      color: var(--texto);
+      font-size: 1.3rem;
       font-weight: 800;
-      letter-spacing: -0.5px;
+      text-decoration: none;
+      letter-spacing: -0.03em;
     }
 
-    .marca span {
-      color: #e04f39;
-    }
-
-    nav {
+    .navegacion-legal {
       display: flex;
       align-items: center;
-      gap: 20px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 18px;
+      color: var(--texto-suave);
+      font-size: 0.92rem;
     }
 
-    nav a {
+    .navegacion-legal a {
       text-decoration: none;
-      font-size: 14px;
+    }
+
+    .navegacion-legal a:hover {
+      color: var(--texto);
+      text-decoration: underline;
+    }
+
+    main {
+      min-height: calc(100vh - 72px);
     }
 
     .hero {
-      padding: 64px 0 42px;
-      text-align: center;
+      padding: 70px 0 48px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+      align-items: center;
+      gap: 48px;
     }
 
     .etiqueta {
       display: inline-block;
-      margin-bottom: 14px;
-      padding: 6px 12px;
-      color: var(--verde);
-      background: #e8f7ef;
+      margin-bottom: 16px;
+      padding: 7px 12px;
+      border: 1px solid var(--borde);
       border-radius: 999px;
-      font-size: 13px;
+      background: var(--superficie);
+      color: var(--texto-suave);
+      font-size: 0.82rem;
       font-weight: 700;
     }
 
-    .hero h1 {
-      max-width: 760px;
-      margin: 0 auto 16px;
-      color: var(--azul);
-      font-size: clamp(30px, 5vw, 48px);
-      line-height: 1.15;
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
     }
 
-    .hero p {
-      max-width: 700px;
-      margin: 0 auto;
+    h1 {
+      max-width: 680px;
+      margin-bottom: 18px;
+      font-size: clamp(2.2rem, 5vw, 4.3rem);
+      line-height: 1.04;
+      letter-spacing: -0.06em;
+    }
+
+    .hero-texto {
+      max-width: 650px;
+      margin-bottom: 28px;
       color: var(--texto-suave);
-      font-size: 18px;
+      font-size: 1.1rem;
     }
 
-    .tarjeta-login {
-      width: min(100%, 510px);
-      margin: 28px auto 0;
-      padding: 30px;
-      text-align: center;
-      background: var(--blanco);
+    .tarjeta {
       border: 1px solid var(--borde);
-      border-radius: 18px;
-      box-shadow: 0 10px 30px rgba(23, 59, 103, 0.08);
+      border-radius: var(--radio);
+      background: var(--superficie);
+      box-shadow: var(--sombra);
     }
 
-    .tarjeta-login h2 {
-      margin: 0 0 8px;
-      color: var(--azul);
-      font-size: 23px;
+    .tarjeta-acceso {
+      padding: 32px;
     }
 
-    .tarjeta-login p {
-      margin: 0 0 22px;
+    .tarjeta-acceso h2 {
+      margin-bottom: 10px;
+      font-size: 1.45rem;
+    }
+
+    .tarjeta-acceso p {
       color: var(--texto-suave);
-      font-size: 15px;
     }
 
-    button {
+    .boton {
+      display: inline-flex;
       width: 100%;
       min-height: 50px;
-      padding: 13px 20px;
+      align-items: center;
+      justify-content: center;
       border: 0;
-      border-radius: 9px;
-      background: var(--azul);
-      color: white;
-      font-size: 16px;
-      font-weight: 700;
+      border-radius: 10px;
+      padding: 13px 20px;
+      background: var(--primario);
+      color: #ffffff;
       cursor: pointer;
-      transition: background 0.2s, transform 0.2s;
+      font: inherit;
+      font-weight: 700;
+      text-decoration: none;
+      transition:
+        background 0.2s ease,
+        transform 0.2s ease;
     }
 
-    button:hover {
-      background: var(--azul-hover);
+    .boton:hover {
+      background: var(--primario-hover);
       transform: translateY(-1px);
     }
 
-    button:focus-visible,
-    a:focus-visible {
-      outline: 3px solid #80bfff;
-      outline-offset: 3px;
+    .boton-secundario {
+      background: transparent;
+      color: var(--texto);
+      border: 1px solid var(--borde);
+    }
+
+    .boton-secundario:hover {
+      background: #f3f5f8;
+      color: var(--texto);
     }
 
     .nota-login {
-      margin-top: 14px !important;
-      font-size: 12px !important;
+      margin: 16px 0 0;
+      color: var(--texto-suave);
+      font-size: 0.82rem;
+      text-align: center;
+    }
+
+    .nota-login a {
+      color: var(--texto);
+      font-weight: 700;
+    }
+
+    #vista-usuario {
+      display: none;
+    }
+
+    .usuario-contenido {
+      text-align: center;
+    }
+
+    #avatar-usuario {
+      display: block;
+      width: 96px;
+      height: 96px;
+      margin: 0 auto 18px;
+      border: 4px solid #ffffff;
+      border-radius: 50%;
+      background: #edf1f6;
+      box-shadow: 0 8px 24px rgba(20, 35, 70, 0.15);
+      object-fit: cover;
+    }
+
+    #nombre-usuario {
+      margin-bottom: 8px;
+      font-size: 1.4rem;
+    }
+
+    .estado-sesion {
+      margin-bottom: 24px;
+      color: var(--texto-suave);
     }
 
     .seccion-legal {
-      padding: 24px 0 60px;
+      padding: 48px 0 72px;
+      border-top: 1px solid var(--borde);
+      background: #ffffff;
+    }
+
+    .seccion-legal h2 {
+      margin-bottom: 12px;
+      font-size: 2rem;
+      letter-spacing: -0.03em;
+    }
+
+    .descripcion-legal {
+      max-width: 760px;
+      margin-bottom: 28px;
+      color: var(--texto-suave);
     }
 
     .rejilla-legal {
@@ -185,404 +270,565 @@
     }
 
     .bloque-legal {
+      height: 100%;
       padding: 24px;
-      background: var(--blanco);
       border: 1px solid var(--borde);
       border-radius: 14px;
+      background: var(--superficie);
     }
 
-    .bloque-legal h2 {
-      margin: 0 0 12px;
-      color: var(--azul);
-      font-size: 20px;
+    .bloque-legal h3 {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
     }
 
-    .bloque-legal p,
-    .bloque-legal li {
+    .bloque-legal p {
+      min-height: 72px;
+      margin-bottom: 14px;
       color: var(--texto-suave);
-      font-size: 14px;
+      font-size: 0.95rem;
     }
 
-    .bloque-legal ul {
-      margin: 10px 0 0;
-      padding-left: 20px;
+    .bloque-legal a {
+      color: var(--texto);
+      font-size: 0.92rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .bloque-legal a:hover {
+      text-decoration: underline;
     }
 
     .aviso-importante {
-      margin-top: 20px;
-      padding: 18px 20px;
-      background: #fff8e8;
-      border-left: 4px solid #d99b00;
-      border-radius: 8px;
-      color: #6b4f00;
-      font-size: 14px;
-    }
-
-    #vista-usuario {
-      width: min(100%, 510px);
-      margin: 28px auto 0;
-      padding: 30px;
-      text-align: center;
-      background: var(--blanco);
-      border: 1px solid var(--borde);
-      border-radius: 18px;
-      box-shadow: 0 10px 30px rgba(23, 59, 103, 0.08);
-    }
-
-    #avatar-usuario {
-      width: 110px;
-      height: 110px;
-      display: block;
-      margin: 0 auto 16px;
-      border: 4px solid #e6edf5;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    #nombre-usuario {
-      margin: 0 0 8px;
-      color: var(--azul);
-    }
-
-    #vista-usuario p {
+      margin-top: 24px;
+      padding: 16px 18px;
+      border-left: 4px solid var(--primario);
+      background: #f5f7fb;
       color: var(--texto-suave);
-    }
-
-    #btn-cerrar-sesion {
-      margin-top: 12px;
-      background: var(--rojo);
-    }
-
-    #btn-cerrar-sesion:hover {
-      background: #8f1d14;
-    }
-
-    .oculto {
-      display: none !important;
+      font-size: 0.9rem;
     }
 
     footer {
-      padding: 28px 20px;
-      background: #eaf0f7;
+      padding: 24px 0;
+      border-top: 1px solid var(--borde);
+      background: #ffffff;
       color: var(--texto-suave);
+      font-size: 0.85rem;
       text-align: center;
-      font-size: 13px;
     }
 
-    footer p {
-      margin: 5px 0;
+    .mensaje-error {
+      display: none;
+      margin-top: 14px;
+      color: var(--peligro);
+      font-size: 0.9rem;
+      text-align: center;
     }
 
-    @media (max-width: 760px) {
-      .navegacion {
-        min-height: auto;
-        padding: 18px 0;
+    @media (max-width: 800px) {
+      .barra-interior {
         align-items: flex-start;
         flex-direction: column;
+        padding: 16px 0;
       }
 
-      nav {
-        width: 100%;
-        justify-content: space-between;
-        gap: 12px;
+      .navegacion-legal {
+        justify-content: flex-start;
+        gap: 10px 16px;
+      }
+
+      main {
+        min-height: auto;
+      }
+
+      .hero {
+        padding-top: 44px;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
       }
 
       .rejilla-legal {
         grid-template-columns: 1fr;
       }
 
-      .hero {
-        padding-top: 42px;
+      .bloque-legal p {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 460px) {
+      .contenedor {
+        width: min(100% - 28px, 1120px);
+      }
+
+      .tarjeta-acceso {
+        padding: 24px;
+      }
+
+      h1 {
+        font-size: 2.45rem;
       }
     }
   </style>
 </head>
 
 <body>
+  <header class="barra-navegacion">
+    <div class="contenedor barra-interior">
+      <a class="marca" href="https://legal.somosbuendato.com/">
+        Buen Dato
+      </a>
 
-  <div class="barra-superior">
-    Plataforma digital de información y servicios de Buen Dato
-  </div>
+      <nav
+        class="navegacion-legal"
+        aria-label="Navegación legal"
+      >
+        <a
+          href="https://legal.somosbuendato.com/privacidad"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Privacidad
+        </a>
 
-  <header>
-    <div class="contenedor navegacion">
-      <a class="marca" href="/">Buen<span>Dato</span></a>
+        <a
+          href="https://legal.somosbuendato.com/eliminacion-datos"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Eliminación de datos
+        </a>
 
-      <nav aria-label="Navegación principal">
-        <a href="#informacion-legal">Información legal</a>
-        <a href="#privacidad">Privacidad</a>
+        <a
+          href="https://legal.somosbuendato.com/terminos"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Términos
+        </a>
       </nav>
     </div>
   </header>
 
   <main>
-    <!-- Vista inicial -->
-    <section id="vista-inicio">
-      <div class="contenedor hero">
-        <span class="etiqueta">Acceso seguro</span>
+    <section class="hero">
+      <div class="contenedor hero-grid">
+        <div>
+          <span class="etiqueta">Acceso seguro</span>
 
-        <h1>Consulta la información de Buen Dato</h1>
+          <h1>Conecta tu cuenta y continúa con Buen Dato.</h1>
 
-        <p>
-          Para continuar, inicia sesión con tu cuenta de TikTok.
-          Usaremos únicamente la información necesaria para identificar tu cuenta.
-        </p>
+          <p class="hero-texto">
+            Inicia sesión con TikTok para acceder a tu experiencia
+            personalizada. Tu contraseña de TikTok no se comparte con Buen
+            Dato.
+          </p>
+        </div>
 
-        <div class="tarjeta-login">
-          <h2>Iniciar sesión</h2>
+        <!-- Vista mostrada cuando no existe una sesión guardada -->
+        <section
+          id="vista-inicio"
+          class="tarjeta tarjeta-acceso"
+          aria-labelledby="titulo-inicio"
+        >
+          <h2 id="titulo-inicio">Iniciar sesión</h2>
 
           <p>
-            Al continuar, serás dirigido temporalmente a TikTok para autorizar
-            el acceso.
+            Autoriza el acceso desde TikTok para vincular tu cuenta.
           </p>
 
-          <button id="btn-tiktok" type="button">
+          <button
+            id="boton-login-tiktok"
+            class="boton"
+            type="button"
+          >
             Continuar con TikTok
           </button>
 
-          <p class="nota-login">
-            Al hacer clic, confirmas que has leído la información legal
-            disponible en esta página.
+          <p
+            id="mensaje-error"
+            class="mensaje-error"
+            role="alert"
+          >
+            No fue posible abrir la ventana de autenticación. Revisa si tu
+            navegador bloqueó las ventanas emergentes.
           </p>
-        </div>
+
+          <p class="nota-login">
+            Al continuar, aceptas consultar y utilizar el servicio conforme a
+            nuestros
+            <a
+              href="https://legal.somosbuendato.com/terminos"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Términos y condiciones
+            </a>
+            y reconoces nuestra
+            <a
+              href="https://legal.somosbuendato.com/privacidad"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Política de privacidad
+            </a>.
+          </p>
+        </section>
+
+        <!-- Vista mostrada después del inicio de sesión -->
+        <section
+          id="vista-usuario"
+          class="tarjeta tarjeta-acceso usuario-contenido"
+          aria-labelledby="nombre-usuario"
+          aria-live="polite"
+        >
+          <img
+            id="avatar-usuario"
+            src=""
+            alt="Foto de perfil del usuario"
+            referrerpolicy="no-referrer"
+          />
+
+          <h2 id="nombre-usuario">Usuario de TikTok</h2>
+
+          <p class="estado-sesion">
+            Tu cuenta está conectada correctamente.
+          </p>
+
+          <button
+            id="boton-cerrar-sesion"
+            class="boton boton-secundario"
+            type="button"
+          >
+            Cerrar sesión
+          </button>
+        </section>
       </div>
-
-      <section
-        id="informacion-legal"
-        class="seccion-legal"
-        aria-labelledby="titulo-legal"
-      >
-        <div class="contenedor">
-          <h2 id="titulo-legal">Información legal</h2>
-
-          <div class="rejilla-legal">
-            <article class="bloque-legal">
-              <h2>Uso del servicio</h2>
-
-              <p>
-                Buen Dato proporciona una plataforma digital para facilitar el
-                acceso a información y servicios ofrecidos a sus usuarios.
-              </p>
-
-              <p>
-                El usuario debe proporcionar información verdadera y utilizar
-                el servicio de forma lícita y responsable.
-              </p>
-            </article>
-
-            <article id="privacidad" class="bloque-legal">
-              <h2>Privacidad</h2>
-
-              <p>
-                Durante el inicio de sesión podemos recibir de TikTok datos
-                básicos de perfil, como:
-              </p>
-
-              <ul>
-                <li>Nombre visible o nombre de perfil.</li>
-                <li>Imagen pública de perfil.</li>
-              </ul>
-
-              <p>
-                Estos datos se utilizan para identificar la sesión del usuario
-                dentro de Buen Dato.
-              </p>
-            </article>
-
-            <article class="bloque-legal">
-              <h2>Autorización</h2>
-
-              <p>
-                La autorización se realiza mediante TikTok. Buen Dato no
-                solicita ni almacena la contraseña de tu cuenta de TikTok.
-              </p>
-
-              <p>
-                Puedes cerrar la sesión desde esta página en cualquier momento.
-              </p>
-            </article>
-          </div>
-
-          <div class="aviso-importante">
-            <strong>Importante:</strong>
-            Revisa y adapta estos textos a la política de privacidad, términos
-            y condiciones, responsable del tratamiento y datos de contacto
-            oficiales de Buen Dato antes de publicar la página definitivamente.
-          </div>
-        </div>
-      </section>
     </section>
 
-    <!-- Vista del usuario autenticado -->
-    <section id="vista-usuario" class="oculto">
-      <img
-        id="avatar-usuario"
-        src=""
-        alt="Foto de perfil de TikTok"
-      >
+    <section
+      id="informacion-legal"
+      class="seccion-legal"
+      aria-labelledby="titulo-legal"
+    >
+      <div class="contenedor">
+        <h2 id="titulo-legal">Información legal</h2>
 
-      <h2 id="nombre-usuario">Usuario de TikTok</h2>
+        <p class="descripcion-legal">
+          Consulta la información relacionada con el uso del servicio, la
+          privacidad y la gestión de tus datos personales.
+        </p>
 
-      <p>
-        Tu cuenta está conectada correctamente con Buen Dato.
-      </p>
+        <div class="rejilla-legal">
+          <article class="bloque-legal">
+            <h3>Política de privacidad</h3>
 
-      <button id="btn-cerrar-sesion" type="button">
-        Cerrar sesión
-      </button>
+            <p>
+              Conoce cómo se recopilan, utilizan, protegen y gestionan tus
+              datos personales al utilizar Buen Dato.
+            </p>
+
+            <a
+              href="https://legal.somosbuendato.com/privacidad"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Leer política de privacidad
+            </a>
+          </article>
+
+          <article class="bloque-legal">
+            <h3>Eliminación de datos</h3>
+
+            <p>
+              Consulta el procedimiento para solicitar la eliminación de tus
+              datos personales asociados a Buen Dato.
+            </p>
+
+            <a
+              href="https://legal.somosbuendato.com/eliminacion-datos"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Solicitar eliminación de datos
+            </a>
+          </article>
+
+          <article class="bloque-legal">
+            <h3>Términos y condiciones</h3>
+
+            <p>
+              Revisa las condiciones aplicables al acceso y uso de los
+              servicios de Buen Dato.
+            </p>
+
+            <a
+              href="https://legal.somosbuendato.com/terminos"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Leer términos y condiciones
+            </a>
+          </article>
+        </div>
+
+        <div class="aviso-importante">
+          Al continuar con TikTok, serás dirigido al proceso de autorización
+          de TikTok. Buen Dato no solicita ni almacena tu contraseña de TikTok.
+        </div>
+      </div>
     </section>
   </main>
 
   <footer>
-    <p>© <span id="anio"></span> Buen Dato. Todos los derechos reservados.</p>
-    <p>
-      Para consultas relacionadas con privacidad o uso del servicio,
-      utiliza los canales oficiales de contacto de Buen Dato.
-    </p>
+    <div class="contenedor">
+      © <span id="anio-actual"></span> Buen Dato. Todos los derechos
+      reservados.
+    </div>
   </footer>
 
   <script>
+    "use strict";
+
+    /*
+     * URL del webhook /tiktok/start en n8n.
+     */
     const URL_INICIO_TIKTOK =
-      'https://n8n.somosbuendato.com/webhook/tiktok/start';
+      "https://n8n.somosbuendato.com/webhook/tiktok/start";
 
-    const vistaInicio = document.getElementById('vista-inicio');
-    const vistaUsuario = document.getElementById('vista-usuario');
-    const botonTikTok = document.getElementById('btn-tiktok');
-    const botonCerrarSesion = document.getElementById('btn-cerrar-sesion');
-    const nombreUsuario = document.getElementById('nombre-usuario');
-    const avatarUsuario = document.getElementById('avatar-usuario');
-    const anio = document.getElementById('anio');
+    const CLAVE_USUARIO = "tiktok_usuario";
 
-    anio.textContent = new Date().getFullYear();
+    const vistaInicio = document.getElementById("vista-inicio");
+    const vistaUsuario = document.getElementById("vista-usuario");
+    const botonLogin = document.getElementById("boton-login-tiktok");
+    const botonCerrarSesion =
+      document.getElementById("boton-cerrar-sesion");
+    const mensajeError = document.getElementById("mensaje-error");
+    const nombreUsuario = document.getElementById("nombre-usuario");
+    const avatarUsuario = document.getElementById("avatar-usuario");
+    const anioActual = document.getElementById("anio-actual");
 
-    botonTikTok.addEventListener('click', function () {
-      const ancho = 500;
-      const alto = 700;
+    let ventanaPopup = null;
 
-      const izquierda =
-        window.screenX + (window.outerWidth - ancho) / 2;
+    if (anioActual) {
+      anioActual.textContent = new Date().getFullYear();
+    }
 
-      const arriba =
-        window.screenY + (window.outerHeight - alto) / 2;
+    function mostrarVistaInicio() {
+      vistaInicio.style.display = "block";
+      vistaUsuario.style.display = "none";
+    }
 
-      const popup = window.open(
-        URL_INICIO_TIKTOK,
-        'tiktok_login',
-        [
-          'width=' + ancho,
-          'height=' + alto,
-          'left=' + izquierda,
-          'top=' + arriba,
-          'resizable=yes',
-          'scrollbars=yes'
-        ].join(',')
-      );
+    function mostrarVistaUsuario() {
+      vistaInicio.style.display = "none";
+      vistaUsuario.style.display = "block";
+    }
 
-      if (!popup) {
-        alert(
-          'El navegador bloqueó la ventana emergente. ' +
-          'Permite las ventanas emergentes para este sitio.'
-        );
-      }
-    });
-
-    function mostrarUsuario(usuario) {
-      if (!usuario || typeof usuario !== 'object') {
-        console.error('Datos de usuario inválidos:', usuario);
-        return;
+    function normalizarUsuario(usuario) {
+      if (!usuario || typeof usuario !== "object") {
+        return null;
       }
 
       const displayName =
-        usuario.display_name || 'Usuario de TikTok';
+        typeof usuario.display_name === "string"
+          ? usuario.display_name.trim()
+          : "";
 
       const avatarUrl =
-        usuario.avatar_url || '';
+        typeof usuario.avatar_url === "string"
+          ? usuario.avatar_url.trim()
+          : "";
 
-      nombreUsuario.textContent = displayName;
+      if (!displayName && !avatarUrl) {
+        return null;
+      }
 
-      if (avatarUrl) {
-        avatarUsuario.src = avatarUrl;
-        avatarUsuario.alt = 'Foto de perfil de ' + displayName;
-        avatarUsuario.style.display = 'block';
+      return {
+        display_name: displayName || "Usuario de TikTok",
+        avatar_url: avatarUrl
+      };
+    }
+
+    function mostrarUsuario(usuario) {
+      const usuarioNormalizado = normalizarUsuario(usuario);
+
+      if (!usuarioNormalizado) {
+        console.error("Los datos recibidos no tienen el formato esperado.");
+        return;
+      }
+
+      nombreUsuario.textContent =
+        usuarioNormalizado.display_name;
+
+      if (usuarioNormalizado.avatar_url) {
+        avatarUsuario.src = usuarioNormalizado.avatar_url;
+        avatarUsuario.alt =
+          "Foto de perfil de " +
+          usuarioNormalizado.display_name;
+        avatarUsuario.style.display = "block";
       } else {
-        avatarUsuario.removeAttribute('src');
-        avatarUsuario.style.display = 'none';
+        avatarUsuario.removeAttribute("src");
+        avatarUsuario.alt = "Sin foto de perfil";
       }
 
       localStorage.setItem(
-        'tiktok_usuario',
-        JSON.stringify({
-          display_name: displayName,
-          avatar_url: avatarUrl
-        })
+        CLAVE_USUARIO,
+        JSON.stringify(usuarioNormalizado)
       );
 
-      vistaInicio.classList.add('oculto');
-      vistaUsuario.classList.remove('oculto');
-
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
+      mostrarVistaUsuario();
     }
 
-    window.addEventListener('message', function (event) {
-      console.log('Mensaje recibido:', event.data);
-      console.log('Origen recibido:', event.origin);
+    function cargarUsuarioGuardado() {
+      const usuarioGuardado =
+        localStorage.getItem(CLAVE_USUARIO);
 
-      const origenValido =
-        event.origin === 'https://n8n.somosbuendato.com' ||
-        event.origin === 'null';
+      if (!usuarioGuardado) {
+        mostrarVistaInicio();
+        return;
+      }
 
-      if (!origenValido) {
-        console.warn('Origen rechazado:', event.origin);
+      try {
+        const usuario = JSON.parse(usuarioGuardado);
+        const usuarioNormalizado = normalizarUsuario(usuario);
+
+        if (usuarioNormalizado) {
+          mostrarUsuario(usuarioNormalizado);
+        } else {
+          localStorage.removeItem(CLAVE_USUARIO);
+          mostrarVistaInicio();
+        }
+      } catch (error) {
+        console.error(
+          "No se pudo leer la sesión guardada:",
+          error
+        );
+
+        localStorage.removeItem(CLAVE_USUARIO);
+        mostrarVistaInicio();
+      }
+    }
+
+    function abrirLoginTikTok() {
+      mensajeError.style.display = "none";
+
+      const ancho = 520;
+      const alto = 720;
+
+      const izquierda =
+        window.screenX +
+        Math.max(0, (window.outerWidth - ancho) / 2);
+
+      const arriba =
+        window.screenY +
+        Math.max(0, (window.outerHeight - alto) / 2);
+
+      ventanaPopup = window.open(
+        URL_INICIO_TIKTOK,
+        "tiktok_login",
+        [
+          "width=" + ancho,
+          "height=" + alto,
+          "left=" + izquierda,
+          "top=" + arriba,
+          "popup=yes",
+          "resizable=yes",
+          "scrollbars=yes"
+        ].join(",")
+      );
+
+      if (!ventanaPopup) {
+        mensajeError.style.display = "block";
+        return;
+      }
+
+      ventanaPopup.focus();
+    }
+
+    function cerrarSesion() {
+      localStorage.removeItem(CLAVE_USUARIO);
+
+      nombreUsuario.textContent = "Usuario de TikTok";
+      avatarUsuario.removeAttribute("src");
+      avatarUsuario.alt = "Foto de perfil del usuario";
+
+      mostrarVistaInicio();
+    }
+
+    /*
+     * Recibe el mensaje enviado por Respond to Webhook en n8n:
+     *
+     * {
+     *   type: "TIKTOK_LOGIN_EXITOSO",
+     *   user: {
+     *     display_name: "...",
+     *     avatar_url: "..."
+     *   }
+     * }
+     */
+    window.addEventListener("message", function (event) {
+      console.log("Mensaje recibido:", {
+        origin: event.origin,
+        data: event.data
+      });
+
+      /*
+       * En una configuración normal, el origen esperado es:
+       * https://n8n.somosbuendato.com
+       *
+       * "null" se acepta aquí porque el flujo actual puede generar un
+       * origen opaco al abrir el popup. Lo ideal para producción es
+       * corregir esa situación y eliminar "null" de esta validación.
+       */
+      const origenPermitido =
+        event.origin === "https://n8n.somosbuendato.com" ||
+        event.origin === "null" ||
+        event.origin === "";
+
+      if (!origenPermitido) {
+        console.warn(
+          "Mensaje rechazado por origen no permitido:",
+          event.origin
+        );
         return;
       }
 
       if (
         !event.data ||
-        event.data.type !== 'TIKTOK_LOGIN_EXITOSO'
+        event.data.type !== "TIKTOK_LOGIN_EXITOSO"
       ) {
         return;
       }
 
-      mostrarUsuario(event.data.user);
-    });
+      /*
+       * El callback debe enviar el objeto dentro de event.data.user.
+       */
+      const usuarioRecibido = event.data.user;
 
-    function cargarUsuarioGuardado() {
-      const usuarioGuardado =
-        localStorage.getItem('tiktok_usuario');
-
-      if (!usuarioGuardado) {
+      if (!usuarioRecibido) {
+        console.error(
+          "El mensaje no contiene event.data.user."
+        );
         return;
       }
 
-      try {
-        mostrarUsuario(JSON.parse(usuarioGuardado));
-      } catch (error) {
-        console.error('Error al cargar la sesión:', error);
-        localStorage.removeItem('tiktok_usuario');
-      }
-    }
-
-    botonCerrarSesion.addEventListener('click', function () {
-      localStorage.removeItem('tiktok_usuario');
-
-      nombreUsuario.textContent = 'Usuario de TikTok';
-      avatarUsuario.removeAttribute('src');
-      avatarUsuario.style.display = 'none';
-
-      vistaUsuario.classList.add('oculto');
-      vistaInicio.classList.remove('oculto');
-
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
+      mostrarUsuario(usuarioRecibido);
     });
+
+    botonLogin.addEventListener(
+      "click",
+      abrirLoginTikTok
+    );
+
+    botonCerrarSesion.addEventListener(
+      "click",
+      cerrarSesion
+    );
 
     cargarUsuarioGuardado();
   </script>
-
 </body>
 </html>
