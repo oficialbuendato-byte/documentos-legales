@@ -1,462 +1,73 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Buen Dato</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f4f7fb;
-      color: #1f2937;
-    }
-
-    .contenedor {
-      width: 100%;
-      max-width: 420px;
-      margin: 20px;
-      padding: 32px 24px;
-      text-align: center;
-      background: #ffffff;
-      border-radius: 18px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.10);
-    }
-
-    .logo {
-      display: block;
-      width: 150px;
-      max-width: 100%;
-      height: auto;
-      margin: 0 auto 24px;
-    }
-
-    h1 {
-      margin: 0 0 12px;
-      font-size: 28px;
-      color: #111827;
-    }
-
-    p {
-      margin: 0 0 24px;
-      line-height: 1.5;
-      color: #6b7280;
-    }
-
-    button {
-      width: 100%;
-      border: 0;
-      border-radius: 10px;
-      padding: 14px 18px;
-      font-size: 16px;
-      font-weight: bold;
-      color: #ffffff;
-      background: #111827;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #374151;
-    }
-
-    button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    .usuario {
-      display: none;
-    }
-
-    .usuario.visible {
-      display: block;
-    }
-
-    .inicio.oculto {
-      display: none;
-    }
-
-    .avatar {
-      display: block;
-      width: 110px;
-      height: 110px;
-      margin: 0 auto 18px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 4px solid #e5e7eb;
-    }
-
-    .avatar-iniciales {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 110px;
-      height: 110px;
-      margin: 0 auto 18px;
-      border-radius: 50%;
-      background: #111827;
-      color: #ffffff;
-      font-size: 32px;
-      font-weight: bold;
-    }
-
-    .nombre-usuario {
-      margin: 0 0 8px;
-      font-size: 23px;
-      color: #111827;
-    }
-
-    .estado {
-      margin-bottom: 20px;
-      color: #16a34a;
-      font-weight: bold;
-    }
-
-    .boton-cerrar {
-      background: #dc2626;
-    }
-
-    .boton-cerrar:hover {
-      background: #b91c1c;
-    }
-  </style>
-</head>
-
-<body>
-
-  <main class="contenedor">
-
-    <img
-      class="logo"
-      src="URL_PUBLICA_DE_TU_LOGO"
-      alt="Buen Dato"
-      onerror="this.style.display='none';"
-    >
-
-    <!-- Vista para iniciar sesión -->
-    <section id="vista-inicio" class="inicio">
-      <h1>Bienvenido a Buen Dato</h1>
-
-      <p>
-        Vincula tu cuenta de TikTok para continuar.
-      </p>
-
-      <button
-        id="boton-tiktok"
-        type="button"
-        onclick="iniciarSesionTikTok()"
-      >
-        Continuar con TikTok
-      </button>
-    </section>
-
-    <!-- Vista que aparece después del inicio de sesión -->
-    <section id="vista-usuario" class="usuario">
-
-      <div id="contenedor-avatar"></div>
-
-      <h2 id="nombre-usuario" class="nombre-usuario"></h2>
-
-      <p class="estado">
-        Cuenta de TikTok vinculada correctamente.
-      </p>
-
-      <button
-        type="button"
-        class="boton-cerrar"
-        onclick="cerrarSesion()"
-      >
-        Cerrar sesión
-      </button>
-
-    </section>
-
-  </main>
-
-  <script>
-    /*
-     * URL del webhook /start de n8n.
-     */
-    const URL_TIKTOK_START =
-      "https://n8n.somosbuendato.com/webhook/tiktok/start";
-
-
-    /*
-     * Abre el inicio de sesión de TikTok en una ventana emergente.
-     */
-    function iniciarSesionTikTok() {
-      const ancho = 600;
-      const alto = 750;
-
-      const izquierda =
-        (window.screen.width - ancho) / 2;
-
-      const arriba =
-        (window.screen.height - alto) / 2;
-
-      const popup = window.open(
-        URL_TIKTOK_START,
-        "TikTokLogin",
-        "width=" + ancho +
-        ",height=" + alto +
-        ",left=" + izquierda +
-        ",top=" + arriba +
-        ",resizable=yes,scrollbars=yes"
-      );
-
-      if (!popup) {
-        alert(
-          "El navegador bloqueó la ventana emergente. " +
-          "Permite las ventanas emergentes para este sitio."
-        );
-      }
-    }
-
-
-    /*
-     * Recibe el mensaje enviado por el Respond to Webhook.
-     *
-     * El callback envía:
-     *
-     * {
-     *   type: "TIKTOK_LOGIN_EXITOSO",
-     *   user: {
-     *     display_name: "...",
-     *     avatar_url: "..."
-     *   }
-     * }
-     */
-    window.addEventListener("message", function(event) {
-
-      console.log("Mensaje recibido:", event);
-
-      /*
-       * El mensaje debe provenir del popup de n8n.
-       */
-      if (
-        event.origin !==
-        "https://n8n.somosbuendato.com"
-      ) {
-        console.warn(
-          "Origen rechazado:",
-          event.origin
-        );
-        return;
-      }
-
-      /*
-       * Verifica que sea el mensaje correcto.
-       */
-      if (
-        !event.data ||
-        event.data.type !==
-        "TIKTOK_LOGIN_EXITOSO"
-      ) {
-        return;
-      }
-
-      /*
-       * IMPORTANTE:
-       * El flujo original utiliza event.data.user,
-       * no event.data.usuario.
-       */
-      const user = event.data.user;
-
-      if (!user) {
-        console.error(
-          "El mensaje no contiene el objeto user."
-        );
-        return;
-      }
-
-      console.log("Usuario de TikTok recibido:", user);
-
-      const usuario = {
-        display_name: user.display_name || "",
-        avatar_url: user.avatar_url || ""
-      };
-
-      /*
-       * Guarda la información para conservar la sesión
-       * al recargar la página.
-       */
-      localStorage.setItem(
-        "tiktok_usuario",
-        JSON.stringify(usuario)
-      );
-
-      mostrarUsuario(usuario);
-    });
-
-
-    /*
-     * Muestra el nombre y la imagen recibidos.
-     */
-    function mostrarUsuario(usuario) {
-      const vistaInicio =
-        document.getElementById("vista-inicio");
-
-      const vistaUsuario =
-        document.getElementById("vista-usuario");
-
-      const nombreUsuario =
-        document.getElementById("nombre-usuario");
-
-      const contenedorAvatar =
-        document.getElementById("contenedor-avatar");
-
-      if (!vistaInicio || !vistaUsuario) {
-        console.error(
-          "No se encontraron las vistas del usuario."
-        );
-        return;
-      }
-
-      const nombre =
-        usuario.display_name ||
-        "Usuario de TikTok";
-
-      nombreUsuario.textContent = nombre;
-
-      contenedorAvatar.innerHTML = "";
-
-      if (usuario.avatar_url) {
-        const imagen = document.createElement("img");
-
-        imagen.className = "avatar";
-        imagen.src = usuario.avatar_url;
-        imagen.alt = "Imagen de " + nombre;
-
-        imagen.onerror = function() {
-          mostrarAvatarConIniciales(
-            contenedorAvatar,
-            nombre
-          );
-        };
-
-        contenedorAvatar.appendChild(imagen);
-      } else {
-        mostrarAvatarConIniciales(
-          contenedorAvatar,
-          nombre
-        );
-      }
-
-      vistaInicio.classList.add("oculto");
-      vistaUsuario.classList.add("visible");
-    }
-
-
-    /*
-     * Muestra iniciales si la imagen no está disponible.
-     */
-    function mostrarAvatarConIniciales(
-      contenedor,
-      nombre
-    ) {
-      const avatar = document.createElement("div");
-
-      avatar.className = "avatar-iniciales";
-      avatar.textContent = obtenerIniciales(nombre);
-
-      contenedor.innerHTML = "";
-      contenedor.appendChild(avatar);
-    }
-
-
-    /*
-     * Obtiene las iniciales del nombre.
-     */
-    function obtenerIniciales(nombre) {
-      const partes =
-        nombre.trim().split(/\s+/);
-
-      if (partes.length === 1) {
-        return partes[0]
-          .substring(0, 2)
-          .toUpperCase();
-      }
-
-      return (
-        partes[0].charAt(0) +
-        partes[1].charAt(0)
-      ).toUpperCase();
-    }
-
-
-    /*
-     * Recupera la sesión guardada al cargar la página.
-     */
-    function cargarUsuarioGuardado() {
-      const usuarioGuardado =
-        localStorage.getItem("tiktok_usuario");
-
-      if (!usuarioGuardado) {
-        return;
-      }
-
-      try {
-        const usuario =
-          JSON.parse(usuarioGuardado);
-
-        if (usuario && usuario.display_name) {
-          mostrarUsuario(usuario);
-        }
-      } catch (error) {
-        console.error(
-          "No se pudo leer la sesión guardada:",
-          error
-        );
-
-        localStorage.removeItem(
-          "tiktok_usuario"
-        );
-      }
-    }
-
-
-    /*
-     * Cierra la sesión local.
-     */
-    function cerrarSesion() {
-      localStorage.removeItem("tiktok_usuario");
-
-      document
-        .getElementById("vista-usuario")
-        .classList.remove("visible");
-
-      document
-        .getElementById("vista-inicio")
-        .classList.remove("oculto");
-
-      document
-        .getElementById("contenedor-avatar")
-        .innerHTML = "";
-
-      document
-        .getElementById("nombre-usuario")
-        .textContent = "";
-    }
-
-
-    /*
-     * Ejecutar al cargar la página.
-     */
-    document.addEventListener(
-      "DOMContentLoaded",
-      cargarUsuarioGuardado
-    );
-  </script>
-
-</body>
-</html>
+<script>
+window.addEventListener('message', function (event) {
+  console.log('Mensaje recibido:', event.origin, event.data);
+
+  if (event.origin !== 'https://n8n.somosbuendato.com') {
+    console.warn('Origen rechazado:', event.origin);
+    return;
+  }
+
+  if (!event.data || event.data.type !== 'TIKTOK_LOGIN_EXITOSO') {
+    console.warn('Tipo de mensaje inválido:', event.data);
+    return;
+  }
+
+  const usuario = event.data.user;
+
+  if (!usuario) {
+    console.error('No se recibió el objeto user');
+    return;
+  }
+
+  console.log('Usuario recibido:', usuario);
+
+  localStorage.setItem('tiktok_usuario', JSON.stringify(usuario));
+
+  mostrarUsuario(usuario);
+});
+
+function mostrarUsuario(usuario) {
+  const vistaInicio = document.getElementById('vista-inicio');
+  const vistaUsuario = document.getElementById('vista-usuario');
+  const nombreUsuario = document.getElementById('nombre-usuario');
+  const avatarUsuario = document.getElementById('avatar-usuario');
+
+  if (nombreUsuario) {
+    nombreUsuario.textContent =
+      usuario.display_name || 'Usuario de TikTok';
+  }
+
+  if (avatarUsuario && usuario.avatar_url) {
+    avatarUsuario.src = usuario.avatar_url;
+    avatarUsuario.style.display = 'block';
+  }
+
+  if (vistaInicio) {
+    vistaInicio.style.display = 'none';
+  }
+
+  if (vistaUsuario) {
+    vistaUsuario.style.display = 'block';
+  }
+}
+
+function cargarUsuarioGuardado() {
+  const usuarioGuardado = localStorage.getItem('tiktok_usuario');
+
+  if (!usuarioGuardado) {
+    return;
+  }
+
+  try {
+    const usuario = JSON.parse(usuarioGuardado);
+    mostrarUsuario(usuario);
+  } catch (error) {
+    console.error('Error leyendo el usuario guardado:', error);
+    localStorage.removeItem('tiktok_usuario');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  cargarUsuarioGuardado();
+});
+</script>
