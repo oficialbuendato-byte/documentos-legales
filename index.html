@@ -14,120 +14,128 @@
   <link rel="stylesheet" href="estilos.css">
 
   <style>
-    /*
-      Estilos complementarios del botón de TikTok
-      y del usuario conectado.
-    */
+    /* Contenedor de conexión */
+    #tiktok-login-container {
+      margin-top: 28px;
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+    }
 
+    /* Botón principal */
     .boton-tiktok {
-      position: relative;
+      border: 0;
+      cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 12px;
-      min-width: 245px;
-      padding: 15px 24px;
-      border: 0;
-      border-radius: 12px;
-      color: #ffffff;
-      background: #111111;
-      box-shadow:
-        4px 4px 0 #25f4ee,
-        -4px -4px 0 #fe2c55,
-        0 14px 30px rgba(0, 0, 0, .20);
-      cursor: pointer;
-      font: inherit;
-      font-weight: 700;
       text-decoration: none;
-      transition:
-        transform .2s ease,
-        box-shadow .2s ease,
-        background .2s ease;
+      font: inherit;
     }
 
-    .boton-tiktok:hover {
-      transform: translateY(-3px);
-      background: #000000;
-      box-shadow:
-        6px 6px 0 #25f4ee,
-        -6px -6px 0 #fe2c55,
-        0 18px 34px rgba(0, 0, 0, .28);
-    }
-
-    .boton-tiktok:active {
-      transform: translateY(0);
-    }
-
-    .boton-tiktok:focus-visible {
-      outline: 3px solid #25f4ee;
-      outline-offset: 4px;
+    .boton-tiktok:disabled {
+      opacity: 0.7;
+      cursor: wait;
     }
 
     .tiktok-icon {
-      position: relative;
+      width: 27px;
+      height: 27px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 25px;
-      height: 25px;
       color: #ffffff;
-      font-size: 27px;
+      font-size: 24px;
+      font-weight: 900;
       line-height: 1;
       text-shadow:
-        -2px -2px 0 #25f4ee,
-        2px 2px 0 #fe2c55;
+        2px 2px 0 #ff0050,
+        -2px -2px 0 #00f2ea;
     }
 
+    /* Estado de conexión */
     .usuario-conectado {
-      display: inline-flex;
+      width: min(100%, 390px);
+      display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 10px 16px 10px 10px;
-      border: 1px solid rgba(37, 244, 238, .45);
-      border-radius: 16px;
-      background: rgba(37, 244, 238, .10);
+      gap: 14px;
+      padding: 12px 16px;
+      border: 1px solid rgba(0, 242, 234, 0.35);
+      border-radius: 18px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(0, 242, 234, 0.12),
+          rgba(255, 0, 80, 0.12)
+        );
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
     }
 
-    .avatar-usuario {
-      width: 52px;
-      height: 52px;
-      border: 3px solid #25f4ee;
+    .avatar-tiktok {
+      width: 48px;
+      height: 48px;
+      flex: 0 0 48px;
       border-radius: 50%;
       object-fit: cover;
-      background: #111111;
+      background: #e9e9e9;
+      border: 3px solid #ffffff;
+      box-shadow:
+        2px 2px 0 #ff0050,
+        -2px -2px 0 #00f2ea;
     }
 
-    .avatar-sin-imagen {
+    .avatar-tiktok-fallback {
+      width: 48px;
+      height: 48px;
+      flex: 0 0 48px;
       display: flex;
       align-items: center;
       justify-content: center;
+      border-radius: 50%;
       color: #ffffff;
-      background: linear-gradient(135deg, #25f4ee, #fe2c55);
+      background: linear-gradient(135deg, #00f2ea, #ff0050);
       font-weight: 800;
+      font-size: 19px;
     }
 
-    .datos-usuario {
+    .usuario-conectado-texto {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      gap: 3px;
+      gap: 4px;
+      min-width: 0;
     }
 
-    .estado-conectado {
-      color: #25f4ee;
-      font-size: .78rem;
-      font-weight: 700;
-    }
-
-    .datos-usuario strong {
+    .usuario-conectado-texto strong {
+      overflow: hidden;
       color: inherit;
-      font-size: 1rem;
+      font-size: 16px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .usuario-conectado-texto span {
+      opacity: 0.72;
+      font-size: 13px;
+    }
+
+    .mensaje-error-tiktok {
+      margin-top: 12px;
+      color: #b42318;
+      font-size: 14px;
     }
 
     @media (max-width: 600px) {
+      #tiktok-login-container {
+        width: 100%;
+      }
+
       .boton-tiktok {
         width: 100%;
-        min-width: 0;
+      }
+
+      .usuario-conectado {
+        width: 100%;
       }
     }
   </style>
@@ -155,22 +163,29 @@
           ideas y contenido interesante compartido por la comunidad.
         </p>
 
-        <!--
-          Este botón ya no utiliza href="/auth/tiktok".
-          La autorización se abre dentro de una ventana emergente.
-        -->
-        <button
-          id="botonTikTok"
-          class="boton boton-tiktok"
-          type="button"
-        >
-          <span class="tiktok-icon" aria-hidden="true">♪</span>
-          <span>Continuar con TikTok</span>
-        </button>
+        <!-- El contenido de este contenedor se reemplaza después de la autorización -->
+        <div id="tiktok-login-container">
+          <button
+            id="boton-login-tiktok"
+            class="boton boton-tiktok"
+            type="button"
+            onclick="iniciarLoginTikTok()"
+          >
+            <span class="tiktok-icon" aria-hidden="true">♪</span>
+            <span>Continuar con TikTok</span>
+          </button>
+        </div>
 
         <p class="nota">
           Al continuar, podrás autorizar de forma segura la conexión con TikTok.
         </p>
+
+        <p
+          id="mensaje-error-tiktok"
+          class="mensaje-error-tiktok"
+          role="alert"
+          hidden
+        ></p>
       </div>
 
       <div
@@ -185,6 +200,7 @@
 
     <section id="como-funciona" class="seccion">
       <span class="etiqueta">Proceso sencillo</span>
+
       <h2>¿Cómo funciona?</h2>
 
       <div class="pasos">
@@ -192,8 +208,7 @@
           <strong>01</strong>
           <h3>Autoriza</h3>
           <p>
-            Conecta tu cuenta de TikTok mediante el flujo oficial
-            de autorización.
+            Conecta tu cuenta de TikTok mediante el flujo oficial de autorización.
           </p>
         </article>
 
@@ -201,8 +216,7 @@
           <strong>02</strong>
           <h3>Conecta</h3>
           <p>
-            Buen Dato procesa únicamente los permisos aprobados
-            para la aplicación.
+            Buen Dato procesa únicamente los permisos aprobados para la aplicación.
           </p>
         </article>
 
@@ -218,6 +232,7 @@
 
     <section class="seccion aviso">
       <h2>Integración segura</h2>
+
       <p>
         Esta aplicación utiliza la autorización oficial de TikTok.
         No solicitamos contraseñas ni mostramos credenciales privadas.
@@ -226,9 +241,9 @@
 
     <section id="privacidad" class="seccion legal-resumen">
       <h2>Información legal</h2>
+
       <p>
-        Consulta cómo protegemos tus datos y cómo puedes solicitar
-        su eliminación.
+        Consulta cómo protegemos tus datos y cómo puedes solicitar su eliminación.
       </p>
 
       <div class="enlaces-legales">
@@ -251,69 +266,123 @@
     </div>
   </footer>
 
+  <script src="script.js"></script>
+
   <script>
-    /*
-      CONFIGURACIÓN
-    */
-
-    const CLIENT_KEY = "sbawogia7hdonkmslg";
-
-    const REDIRECT_URI =
-      "https://n8n.somosbuendato.com/webhook/tiktok/callback";
-
-    const ORIGEN_N8N =
-      "https://n8n.somosbuendato.com";
-
+    const ORIGEN_N8N = "https://n8n.somosbuendato.com";
+    const CLAVE_USUARIO = "sbawogia7hdonkmslg";
 
     /*
-      Año automático del pie de página
-    */
-
-    const elementoAnio = document.getElementById("anio");
-
-    if (elementoAnio) {
-      elementoAnio.textContent = new Date().getFullYear();
+     * Escapa contenido antes de insertarlo en HTML.
+     * Esto evita insertar directamente texto recibido desde otra ventana.
+     */
+    function escaparHTML(valor) {
+      return String(valor || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
     }
 
+    function obtenerIniciales(nombre) {
+      const texto = String(nombre || "BD").trim();
 
-    /*
-      Abrir autorización de TikTok en un popup
-    */
+      if (!texto) {
+        return "BD";
+      }
 
-    const botonTikTok = document.getElementById("botonTikTok");
-
-    if (botonTikTok) {
-      botonTikTok.addEventListener("click", iniciarLoginTikTok);
+      return texto
+        .split(/\s+/)
+        .slice(0, 2)
+        .map(parte => parte.charAt(0).toUpperCase())
+        .join("");
     }
 
-    function iniciarLoginTikTok() {
-      if (!CLIENT_KEY || CLIENT_KEY === "TU_CLIENT_KEY") {
-        alert(
-          "Falta configurar la clave de cliente de TikTok."
-        );
+    function mostrarUsuarioConectado(usuario) {
+      const contenedor = document.getElementById("tiktok-login-container");
+
+      if (!contenedor) {
+        console.error("No existe #tiktok-login-container");
         return;
       }
 
-      /*
-        Se genera un estado único para identificar la autorización.
-        El mismo valor podrá validarse posteriormente en n8n.
-      */
-      const estado = generarEstadoSeguro();
+      const nombre = String(
+        usuario.display_name ||
+        usuario.displayName ||
+        usuario.name ||
+        "Usuario de TikTok"
+      ).trim();
 
-      sessionStorage.setItem("tiktok_oauth_state", estado);
+      const avatar = String(
+        usuario.avatar_url ||
+        usuario.avatarUrl ||
+        usuario.avatar ||
+        ""
+      ).trim();
 
-      const parametros = new URLSearchParams({
-        client_key: CLIENT_KEY,
-        response_type: "code",
-        scope: "user.info.basic",
-        redirect_uri: REDIRECT_URI,
-        state: estado
-      });
+      const nombreSeguro = escaparHTML(nombre);
+      const avatarSeguro = escaparHTML(avatar);
 
-      const urlAutorizacion =
-        "https://www.tiktok.com/v2/auth/authorize/?" +
-        parametros.toString();
+      const imagen = avatarSeguro
+        ? `
+          <img
+            src="${avatarSeguro}"
+            alt="Avatar de ${nombreSeguro}"
+            class="avatar-tiktok"
+            referrerpolicy="no-referrer"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          >
+          <span
+            class="avatar-tiktok-fallback"
+            style="display:none;"
+            aria-hidden="true"
+          >
+            ${escaparHTML(obtenerIniciales(nombre))}
+          </span>
+        `
+        : `
+          <span class="avatar-tiktok-fallback" aria-hidden="true">
+            ${escaparHTML(obtenerIniciales(nombre))}
+          </span>
+        `;
 
+      contenedor.innerHTML = `
+        <div class="usuario-conectado">
+          ${imagen}
+
+          <div class="usuario-conectado-texto">
+            <strong>${nombreSeguro}</strong>
+            <span>Cuenta de TikTok conectada</span>
+          </div>
+        </div>
+      `;
+
+      try {
+        localStorage.setItem(
+          CLAVE_USUARIO,
+          JSON.stringify({
+            display_name: nombre,
+            avatar_url: avatar
+          })
+        );
+      } catch (error) {
+        console.warn("No se pudo guardar el usuario localmente.", error);
+      }
+    }
+
+    function mostrarErrorTikTok(mensaje) {
+      const elemento = document.getElementById("mensaje-error-tiktok");
+
+      if (!elemento) {
+        return;
+      }
+
+      elemento.textContent = mensaje;
+      elemento.hidden = false;
+    }
+
+    function iniciarLoginTikTok() {
       const ancho = 600;
       const alto = 720;
 
@@ -323,121 +392,123 @@
       const arriba =
         window.screenY + (window.outerHeight - alto) / 2;
 
+      /*
+       * Esta ruta debe continuar apuntando al flujo OAuth que ya tienes
+       * configurado en tu servidor o proxy.
+       */
+      const urlLogin = "/auth/tiktok";
+
       const popup = window.open(
-        urlAutorizacion,
-        "TikTokLogin",
+        urlLogin,
+        "tiktok_login",
         [
+          "popup=yes",
           "width=" + ancho,
           "height=" + alto,
-          "left=" + izquierda,
-          "top=" + arriba,
+          "left=" + Math.max(0, izquierda),
+          "top=" + Math.max(0, arriba),
           "resizable=yes",
           "scrollbars=yes"
         ].join(",")
       );
 
       if (!popup) {
-        alert(
-          "El navegador bloqueó la ventana emergente. " +
-          "Permite las ventanas emergentes para este sitio."
+        mostrarErrorTikTok(
+          "El navegador bloqueó la ventana emergente. Permite los pop-ups para continuar."
         );
         return;
       }
 
-      popup.focus();
-    }
+      const boton = document.getElementById("boton-login-tiktok");
 
-    function generarEstadoSeguro() {
-      if (window.crypto && window.crypto.randomUUID) {
-        return window.crypto.randomUUID();
+      if (boton) {
+        boton.disabled = true;
+        boton.querySelector("span:last-child").textContent =
+          "Esperando autorización...";
       }
 
-      return (
-        Date.now().toString(36) +
-        Math.random().toString(36).substring(2)
-      );
-    }
+      popup.focus();
 
+      /*
+       * Si el usuario cierra el popup sin completar el proceso,
+       * se restablece el botón.
+       */
+      const revisarPopup = setInterval(function () {
+        if (popup.closed) {
+          clearInterval(revisarPopup);
+
+          if (boton) {
+            boton.disabled = false;
+            boton.querySelector("span:last-child").textContent =
+              "Continuar con TikTok";
+          }
+        }
+      }, 700);
+    }
 
     /*
-      Recibir desde n8n el nombre y el avatar del usuario.
-      Esta parte funcionará cuando Respond to Webhook
-      envíe el mensaje correspondiente.
-    */
-
-    window.addEventListener("message", function(event) {
-      if (event.origin !== ORIGEN_N8N) {
+     * Recibe el mensaje enviado desde el nodo Respond to Webhook de n8n.
+     */
+    window.addEventListener("message", function (evento) {
+      if (evento.origin !== ORIGEN_N8N) {
+        console.warn(
+          "Mensaje rechazado por origen no autorizado:",
+          evento.origin
+        );
         return;
       }
 
-      if (
-        !event.data ||
-        event.data.tipo !== "TIKTOK_LOGIN_EXITOSO"
-      ) {
+      const datos = evento.data || {};
+
+      if (datos.type !== "TIKTOK_LOGIN_EXITOSO") {
         return;
       }
 
-      const usuario = event.data.usuario || {};
+      /*
+       * Se aceptan estas dos estructuras:
+       *
+       * 1. { type, user: { display_name, avatar_url } }
+       * 2. { type, display_name, avatar_url }
+       */
+      const usuario = datos.user || {
+        display_name: datos.display_name,
+        avatar_url: datos.avatar_url
+      };
+
+      if (!usuario.display_name && !usuario.avatar_url) {
+        mostrarErrorTikTok(
+          "TikTok respondió correctamente, pero no se recibieron los datos del perfil."
+        );
+        return;
+      }
 
       mostrarUsuarioConectado(usuario);
     });
 
+    /*
+     * Recupera el usuario si la página se recarga después de una conexión exitosa.
+     */
+    document.addEventListener("DOMContentLoaded", function () {
+      const anio = document.getElementById("anio");
 
-    function mostrarUsuarioConectado(usuario) {
-      const nombre =
-        usuario.display_name || "Usuario conectado";
-
-      const avatar =
-        usuario.avatar_url || "";
-
-      const boton = document.getElementById("botonTikTok");
-
-      if (!boton) {
-        return;
+      if (anio) {
+        anio.textContent = new Date().getFullYear();
       }
 
-      const contenedor = document.createElement("div");
+      try {
+        const usuarioGuardado = localStorage.getItem(CLAVE_USUARIO);
 
-      contenedor.className = "usuario-conectado";
+        if (usuarioGuardado) {
+          const usuario = JSON.parse(usuarioGuardado);
 
-      if (avatar) {
-        const imagen = document.createElement("img");
-
-        imagen.className = "avatar-usuario";
-        imagen.src = avatar;
-        imagen.alt = "Avatar de " + nombre;
-
-        contenedor.appendChild(imagen);
-      } else {
-        const avatarIniciales = document.createElement("div");
-
-        avatarIniciales.className =
-          "avatar-usuario avatar-sin-imagen";
-
-        avatarIniciales.textContent = "BD";
-
-        contenedor.appendChild(avatarIniciales);
+          if (usuario && (usuario.display_name || usuario.avatar_url)) {
+            mostrarUsuarioConectado(usuario);
+          }
+        }
+      } catch (error) {
+        console.warn("No se pudo recuperar el usuario guardado.", error);
       }
-
-      const datos = document.createElement("div");
-
-      datos.className = "datos-usuario";
-
-      const estado = document.createElement("span");
-
-      estado.className = "estado-conectado";
-      estado.textContent = "✓ Conectado correctamente";
-
-      const nombreElemento = document.createElement("strong");
-
-      nombreElemento.textContent = nombre;
-
-      datos.appendChild(estado);
-      datos.appendChild(nombreElemento);
-      contenedor.appendChild(datos);
-
-      boton.replaceWith(contenedor);
-    }
+    });
   </script>
 </body>
 </html>
