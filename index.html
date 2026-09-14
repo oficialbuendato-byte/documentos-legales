@@ -1,8 +1,11 @@
 <script>
 window.addEventListener('message', function (event) {
-  console.log('Mensaje recibido:', event.origin, event.data);
+  console.log('Mensaje recibido:', event);
 
-  if (event.origin !== 'https://n8n.somosbuendato.com') {
+  if (
+    event.origin !== 'https://n8n.somosbuendato.com' &&
+    event.origin !== 'null'
+  ) {
     console.warn('Origen rechazado:', event.origin);
     return;
   }
@@ -25,6 +28,49 @@ window.addEventListener('message', function (event) {
 
   mostrarUsuario(usuario);
 });
+
+function mostrarUsuario(usuario) {
+  const vistaInicio = document.getElementById('vista-inicio');
+  const vistaUsuario = document.getElementById('vista-usuario');
+  const nombreUsuario = document.getElementById('nombre-usuario');
+  const avatarUsuario = document.getElementById('avatar-usuario');
+
+  if (nombreUsuario) {
+    nombreUsuario.textContent =
+      usuario.display_name || 'Usuario de TikTok';
+  }
+
+  if (avatarUsuario && usuario.avatar_url) {
+    avatarUsuario.src = usuario.avatar_url;
+    avatarUsuario.alt = usuario.display_name || 'Avatar de TikTok';
+    avatarUsuario.style.display = 'block';
+  }
+
+  if (vistaInicio) {
+    vistaInicio.style.display = 'none';
+  }
+
+  if (vistaUsuario) {
+    vistaUsuario.style.display = 'block';
+  }
+}
+
+function cargarUsuarioGuardado() {
+  const datos = localStorage.getItem('tiktok_usuario');
+
+  if (!datos) return;
+
+  try {
+    mostrarUsuario(JSON.parse(datos));
+  } catch (error) {
+    console.error('Error al leer el usuario guardado:', error);
+    localStorage.removeItem('tiktok_usuario');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', cargarUsuarioGuardado);
+</script>
+
 
 function mostrarUsuario(usuario) {
   const vistaInicio = document.getElementById('vista-inicio');
