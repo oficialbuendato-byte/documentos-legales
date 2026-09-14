@@ -3,27 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <meta
-    name="description"
-    content="Buen Dato conecta recomendaciones, ideas y contenido útil para la comunidad."
-  >
-
-  <meta name="theme-color" content="#0b0d12">
-
+  <meta name="description" content="Buen Dato conecta recomendaciones, ideas y contenido útil para la comunidad.">
+  <meta name="theme-color" content="#080a0f">
   <title>Buen Dato | Recomendaciones útiles</title>
 
   <style>
     :root {
       --fondo: #080a0f;
       --fondo-secundario: #10131b;
-      --tarjeta: rgba(255, 255, 255, 0.07);
-      --borde: rgba(255, 255, 255, 0.13);
-      --texto: #ffffff;
+      --tarjeta: rgba(255,255,255,.07);
+      --borde: rgba(255,255,255,.13);
+      --texto: #fff;
       --texto-suave: #aeb5c4;
       --turquesa: #25f4ee;
       --rosa: #fe2c55;
-      --morado: #8b5cf6;
       --ancho: 1180px;
       --radio: 24px;
     }
@@ -43,19 +36,10 @@
       overflow-x: hidden;
       color: var(--texto);
       background:
-        radial-gradient(
-          circle at 8% 5%,
-          rgba(37, 244, 238, 0.12),
-          transparent 28%
-        ),
-        radial-gradient(
-          circle at 92% 14%,
-          rgba(254, 44, 85, 0.14),
-          transparent 25%
-        ),
+        radial-gradient(circle at 8% 5%, rgba(37,244,238,.12), transparent 28%),
+        radial-gradient(circle at 92% 14%, rgba(254,44,85,.14), transparent 25%),
         var(--fondo);
-      font-family:
-        Inter, ui-sans-serif, system-ui, -apple-system,
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system,
         BlinkMacSystemFont, "Segoe UI", sans-serif;
       line-height: 1.6;
     }
@@ -66,7 +50,7 @@
     }
 
     .contenedor {
-      width: min(100% - 40px, var(--ancho));
+      width: min(calc(100% - 40px), var(--ancho));
       margin: 0 auto;
     }
 
@@ -74,8 +58,8 @@
       position: sticky;
       top: 0;
       z-index: 20;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(8, 10, 15, 0.78);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: rgba(8,10,15,.78);
       backdrop-filter: blur(18px);
     }
 
@@ -93,7 +77,7 @@
       gap: 11px;
       font-size: 21px;
       font-weight: 800;
-      letter-spacing: -0.5px;
+      letter-spacing: -.5px;
     }
 
     .logo-marca {
@@ -104,15 +88,9 @@
       height: 38px;
       border-radius: 12px;
       color: #080a0f;
-      background: linear-gradient(
-        135deg,
-        var(--turquesa),
-        #ffffff 48%,
-        var(--rosa)
-      );
-      box-shadow:
-        4px 4px 0 rgba(254, 44, 85, 0.45),
-        -3px -3px 0 rgba(37, 244, 238, 0.35);
+      background: linear-gradient(135deg, var(--turquesa), #fff 48%, var(--rosa));
+      box-shadow: 4px 4px 0 rgba(254,44,85,.45),
+        -3px -3px 0 rgba(37,244,238,.35);
       font-size: 13px;
       font-weight: 900;
     }
@@ -127,7 +105,7 @@
     }
 
     .navegacion a {
-      transition: color 0.2s ease;
+      transition: color .2s ease;
     }
 
     .navegacion a:hover {
@@ -136,10 +114,10 @@
 
     .boton-nav {
       padding: 10px 17px;
-      border: 1px solid rgba(37, 244, 238, 0.35);
+      border: 1px solid rgba(37,244,238,.35);
       border-radius: 10px;
       color: var(--turquesa) !important;
-      background: rgba(37, 244, 238, 0.08);
+      background: rgba(37,244,238,.08);
     }
 
     main {
@@ -149,10 +127,10 @@
     .hero {
       position: relative;
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
+      grid-template-columns: 1.1fr .9fr;
       align-items: center;
       gap: 80px;
-      width: min(100% - 40px, var(--ancho));
+      width: min(calc(100% - 40px), var(--ancho));
       min-height: 670px;
       margin: 0 auto;
       padding: 90px 0 100px;
@@ -165,11 +143,11 @@
       left: 37%;
       width: 320px;
       height: 320px;
-      border: 1px solid rgba(37, 244, 238, 0.1);
+      border: 1px solid rgba(37,244,238,.1);
       border-radius: 50%;
       box-shadow:
-        0 0 0 50px rgba(37, 244, 238, 0.025),
-        0 0 0 100px rgba(37, 244, 238, 0.02);
+        0 0 0 50px rgba(37,244,238,.025),
+        0 0 0 100px rgba(37,244,238,.02);
       pointer-events: none;
     }
 
@@ -184,13 +162,13 @@
       gap: 8px;
       margin-bottom: 22px;
       padding: 7px 13px;
-      border: 1px solid rgba(37, 244, 238, 0.25);
+      border: 1px solid rgba(37,244,238,.25);
       border-radius: 999px;
       color: var(--turquesa);
-      background: rgba(37, 244, 238, 0.08);
+      background: rgba(37,244,238,.08);
       font-size: 12px;
       font-weight: 800;
-      letter-spacing: 0.7px;
+      letter-spacing: .7px;
       text-transform: uppercase;
     }
 
@@ -214,12 +192,7 @@
 
     .texto-gradiente {
       color: var(--turquesa);
-      background: linear-gradient(
-        90deg,
-        var(--turquesa),
-        #ffffff 46%,
-        var(--rosa)
-      );
+      background: linear-gradient(90deg, var(--turquesa), #fff 46%, var(--rosa));
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -251,17 +224,15 @@
       overflow: hidden;
       border: 0;
       border-radius: 14px;
-      color: #ffffff;
+      color: #fff;
       background: #111318;
       box-shadow:
         4px 4px 0 var(--rosa),
         -4px -4px 0 var(--turquesa),
-        0 15px 35px rgba(0, 0, 0, 0.35);
+        0 15px 35px rgba(0,0,0,.35);
       font-size: 15px;
       font-weight: 800;
-      transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+      transition: transform .2s ease, box-shadow .2s ease;
     }
 
     .boton-tiktok::before {
@@ -271,11 +242,11 @@
       background: linear-gradient(
         105deg,
         transparent 20%,
-        rgba(255, 255, 255, 0.16) 48%,
+        rgba(255,255,255,.16) 48%,
         transparent 72%
       );
       transform: translateX(-130%);
-      transition: transform 0.55s ease;
+      transition: transform .55s ease;
     }
 
     .boton-tiktok:hover {
@@ -283,7 +254,7 @@
       box-shadow:
         5px 5px 0 var(--rosa),
         -5px -5px 0 var(--turquesa),
-        0 22px 42px rgba(0, 0, 0, 0.5);
+        0 22px 42px rgba(0,0,0,.5);
     }
 
     .boton-tiktok:hover::before {
@@ -299,16 +270,11 @@
       width: 29px;
       height: 29px;
       border-radius: 9px;
-      color: #ffffff;
-      background: linear-gradient(
-        135deg,
-        var(--turquesa),
-        #17191f 48%,
-        var(--rosa)
-      );
+      color: #fff;
+      background: linear-gradient(135deg, var(--turquesa), #17191f 48%, var(--rosa));
       box-shadow:
-        3px 3px 0 rgba(254, 44, 85, 0.8),
-        -2px -2px 0 rgba(37, 244, 238, 0.75);
+        3px 3px 0 rgba(254,44,85,.8),
+        -2px -2px 0 rgba(37,244,238,.75);
     }
 
     .icono-tiktok svg {
@@ -340,13 +306,12 @@
       overflow: hidden;
       border: 1px solid var(--borde);
       border-radius: 30px;
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255, 255, 255, 0.13),
-          rgba(255, 255, 255, 0.035)
-        );
-      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.35);
+      background: linear-gradient(
+        145deg,
+        rgba(255,255,255,.13),
+        rgba(255,255,255,.035)
+      );
+      box-shadow: 0 25px 80px rgba(0,0,0,.35);
       text-align: center;
     }
 
@@ -356,6 +321,7 @@
       position: absolute;
       border-radius: 50%;
       pointer-events: none;
+      filter: blur(10px);
     }
 
     .tarjeta-presentacion::before {
@@ -363,8 +329,7 @@
       right: -70px;
       width: 240px;
       height: 240px;
-      background: rgba(254, 44, 85, 0.18);
-      filter: blur(10px);
+      background: rgba(254,44,85,.18);
     }
 
     .tarjeta-presentacion::after {
@@ -372,8 +337,7 @@
       left: -70px;
       width: 240px;
       height: 240px;
-      background: rgba(37, 244, 238, 0.14);
-      filter: blur(10px);
+      background: rgba(37,244,238,.14);
     }
 
     .circulo {
@@ -388,16 +352,15 @@
       border: 8px solid #111318;
       border-radius: 50%;
       outline: 3px solid var(--turquesa);
-      background:
-        linear-gradient(
-          135deg,
-          var(--turquesa) 0%,
-          #1b1d24 50%,
-          var(--rosa) 100%
-        );
+      background: linear-gradient(
+        135deg,
+        var(--turquesa) 0%,
+        #1b1d24 50%,
+        var(--rosa) 100%
+      );
       box-shadow:
-        0 0 0 7px rgba(254, 44, 85, 0.55),
-        0 20px 40px rgba(0, 0, 0, 0.35);
+        0 0 0 7px rgba(254,44,85,.55),
+        0 20px 40px rgba(0,0,0,.35);
       font-size: 43px;
       font-weight: 900;
       letter-spacing: -3px;
@@ -418,7 +381,7 @@
     }
 
     .seccion {
-      width: min(100% - 40px, var(--ancho));
+      width: min(calc(100% - 40px), var(--ancho));
       margin: 0 auto;
       padding: 90px 0;
     }
@@ -453,14 +416,12 @@
       border: 1px solid var(--borde);
       border-radius: var(--radio);
       background: var(--tarjeta);
-      transition:
-        transform 0.2s ease,
-        border-color 0.2s ease;
+      transition: transform .2s ease, border-color .2s ease;
     }
 
     .paso:hover {
       transform: translateY(-5px);
-      border-color: rgba(37, 244, 238, 0.4);
+      border-color: rgba(37,244,238,.4);
     }
 
     .paso strong {
@@ -488,14 +449,13 @@
       gap: 50px;
       margin-top: 25px;
       padding: 38px;
-      border: 1px solid rgba(37, 244, 238, 0.18);
+      border: 1px solid rgba(37,244,238,.18);
       border-radius: var(--radio);
-      background:
-        linear-gradient(
-          110deg,
-          rgba(37, 244, 238, 0.1),
-          rgba(255, 255, 255, 0.035)
-        );
+      background: linear-gradient(
+        110deg,
+        rgba(37,244,238,.1),
+        rgba(255,255,255,.035)
+      );
     }
 
     .aviso h2 {
@@ -531,22 +491,19 @@
       border: 1px solid var(--borde);
       border-radius: 10px;
       color: #dfe4ed;
-      background: rgba(255, 255, 255, 0.045);
+      background: rgba(255,255,255,.045);
       font-size: 13px;
-      transition:
-        color 0.2s ease,
-        border-color 0.2s ease,
-        background 0.2s ease;
+      transition: color .2s ease, border-color .2s ease, background .2s ease;
     }
 
     .enlaces-legales a:hover {
       border-color: var(--turquesa);
       color: var(--turquesa);
-      background: rgba(37, 244, 238, 0.08);
+      background: rgba(37,244,238,.08);
     }
 
     .pie {
-      border-top: 1px solid rgba(255, 255, 255, 0.09);
+      border-top: 1px solid rgba(255,255,255,.09);
       color: #818997;
       background: #06070a;
       font-size: 13px;
@@ -612,7 +569,7 @@
       .contenedor,
       .hero,
       .seccion {
-        width: min(100% - 30px, var(--ancho));
+        width: min(calc(100% - 30px), var(--ancho));
       }
 
       .barra-navegacion {
@@ -676,7 +633,13 @@
         <a href="#como-funciona">Cómo funciona</a>
         <a href="#seguridad">Seguridad</a>
         <a href="#privacidad">Privacidad</a>
-        <a class="boton-nav" href="/auth/tiktok">Conectar cuenta</a>
+
+        <a
+          class="boton-nav"
+          href="https://www.tiktok.com/v2/auth/authorize/?client_key=sbawogia7hdonkmslg&amp;response_type=code&amp;scope=user.info.basic%2Cvideo.upload%2Cuser.info.profile%2Cuser.info.stats%2Cvideo.list&amp;redirect_uri=https%3A%2F%2Fn8n.somosbuendato.com%2Fwebhook%2Ftiktok%2Fcallback&amp;state=buen-dato"
+        >
+          Conectar cuenta
+        </a>
       </nav>
     </div>
   </header>
@@ -700,7 +663,7 @@
         <div class="acciones">
           <a
             class="boton-tiktok"
-            href="/auth/tiktok"
+            href="https://www.tiktok.com/v2/auth/authorize/?client_key=TU_CLIENT_KEY&amp;response_type=code&amp;scope=user.info.basic%2Cvideo.upload%2Cuser.info.profile%2Cuser.info.stats%2Cvideo.list&amp;redirect_uri=https%3A%2F%2Fn8n.somosbuendato.com%2Fwebhook%2Ftiktok%2Fcallback&amp;state=buen-dato"
             aria-label="Continuar con TikTok"
           >
             <span class="icono-tiktok" aria-hidden="true">
