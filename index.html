@@ -2,706 +2,190 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Buen Dato conecta recomendaciones, ideas y contenido útil para la comunidad.">
-  <meta name="theme-color" content="#080a0f">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta
+    name="description"
+    content="Buen Dato conecta recomendaciones y contenido útil para la comunidad."
+  >
+
   <title>Buen Dato | Recomendaciones útiles</title>
 
+  <link rel="stylesheet" href="estilos.css">
+
   <style>
-    :root {
-      --fondo: #080a0f;
-      --fondo-secundario: #10131b;
-      --tarjeta: rgba(255,255,255,.07);
-      --borde: rgba(255,255,255,.13);
-      --texto: #fff;
-      --texto-suave: #aeb5c4;
-      --turquesa: #25f4ee;
-      --rosa: #fe2c55;
-      --ancho: 1180px;
-      --radio: 24px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      min-height: 100vh;
-      overflow-x: hidden;
-      color: var(--texto);
-      background:
-        radial-gradient(circle at 8% 5%, rgba(37,244,238,.12), transparent 28%),
-        radial-gradient(circle at 92% 14%, rgba(254,44,85,.14), transparent 25%),
-        var(--fondo);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system,
-        BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.6;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .contenedor {
-      width: min(calc(100% - 40px), var(--ancho));
-      margin: 0 auto;
-    }
-
-    .encabezado {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      border-bottom: 1px solid rgba(255,255,255,.08);
-      background: rgba(8,10,15,.78);
-      backdrop-filter: blur(18px);
-    }
-
-    .barra-navegacion {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      min-height: 78px;
-      gap: 30px;
-    }
-
-    .logo {
-      display: inline-flex;
-      align-items: center;
-      gap: 11px;
-      font-size: 21px;
-      font-weight: 800;
-      letter-spacing: -.5px;
-    }
-
-    .logo-marca {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-      color: #080a0f;
-      background: linear-gradient(135deg, var(--turquesa), #fff 48%, var(--rosa));
-      box-shadow: 4px 4px 0 rgba(254,44,85,.45),
-        -3px -3px 0 rgba(37,244,238,.35);
-      font-size: 13px;
-      font-weight: 900;
-    }
-
-    .navegacion {
-      display: flex;
-      align-items: center;
-      gap: 28px;
-      color: var(--texto-suave);
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .navegacion a {
-      transition: color .2s ease;
-    }
-
-    .navegacion a:hover {
-      color: var(--turquesa);
-    }
-
-    .boton-nav {
-      padding: 10px 17px;
-      border: 1px solid rgba(37,244,238,.35);
-      border-radius: 10px;
-      color: var(--turquesa) !important;
-      background: rgba(37,244,238,.08);
-    }
-
-    main {
-      overflow: hidden;
-    }
-
-    .hero {
-      position: relative;
-      display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      align-items: center;
-      gap: 80px;
-      width: min(calc(100% - 40px), var(--ancho));
-      min-height: 670px;
-      margin: 0 auto;
-      padding: 90px 0 100px;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      top: 80px;
-      left: 37%;
-      width: 320px;
-      height: 320px;
-      border: 1px solid rgba(37,244,238,.1);
-      border-radius: 50%;
-      box-shadow:
-        0 0 0 50px rgba(37,244,238,.025),
-        0 0 0 100px rgba(37,244,238,.02);
-      pointer-events: none;
-    }
-
-    .hero-contenido {
-      position: relative;
-      z-index: 1;
-    }
-
-    .etiqueta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 22px;
-      padding: 7px 13px;
-      border: 1px solid rgba(37,244,238,.25);
-      border-radius: 999px;
-      color: var(--turquesa);
-      background: rgba(37,244,238,.08);
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: .7px;
-      text-transform: uppercase;
-    }
-
-    .etiqueta::before {
-      content: "";
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--turquesa);
-      box-shadow: 0 0 12px var(--turquesa);
-    }
-
-    h1 {
-      max-width: 700px;
-      margin-bottom: 24px;
-      font-size: clamp(42px, 6vw, 76px);
-      font-weight: 850;
-      letter-spacing: -4px;
-      line-height: 1.02;
-    }
-
-    .texto-gradiente {
-      color: var(--turquesa);
-      background: linear-gradient(90deg, var(--turquesa), #fff 46%, var(--rosa));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero-descripcion {
-      max-width: 600px;
-      margin-bottom: 34px;
-      color: var(--texto-suave);
-      font-size: 18px;
-      line-height: 1.75;
-    }
-
-    .acciones {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 16px;
-    }
+    /*
+      Estilos complementarios del botón de TikTok
+      y del usuario conectado.
+    */
 
     .boton-tiktok {
       position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 13px;
-      min-width: 235px;
-      padding: 16px 23px;
-      overflow: hidden;
+      gap: 12px;
+      min-width: 245px;
+      padding: 15px 24px;
       border: 0;
-      border-radius: 14px;
-      color: #fff;
-      background: #111318;
+      border-radius: 12px;
+      color: #ffffff;
+      background: #111111;
       box-shadow:
-        4px 4px 0 var(--rosa),
-        -4px -4px 0 var(--turquesa),
-        0 15px 35px rgba(0,0,0,.35);
-      font-size: 15px;
-      font-weight: 800;
-      transition: transform .2s ease, box-shadow .2s ease;
-    }
-
-    .boton-tiktok::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        105deg,
-        transparent 20%,
-        rgba(255,255,255,.16) 48%,
-        transparent 72%
-      );
-      transform: translateX(-130%);
-      transition: transform .55s ease;
+        4px 4px 0 #25f4ee,
+        -4px -4px 0 #fe2c55,
+        0 14px 30px rgba(0, 0, 0, .20);
+      cursor: pointer;
+      font: inherit;
+      font-weight: 700;
+      text-decoration: none;
+      transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
     }
 
     .boton-tiktok:hover {
-      transform: translateY(-4px);
+      transform: translateY(-3px);
+      background: #000000;
       box-shadow:
-        5px 5px 0 var(--rosa),
-        -5px -5px 0 var(--turquesa),
-        0 22px 42px rgba(0,0,0,.5);
+        6px 6px 0 #25f4ee,
+        -6px -6px 0 #fe2c55,
+        0 18px 34px rgba(0, 0, 0, .28);
     }
 
-    .boton-tiktok:hover::before {
-      transform: translateX(130%);
+    .boton-tiktok:active {
+      transform: translateY(0);
     }
 
-    .icono-tiktok {
+    .boton-tiktok:focus-visible {
+      outline: 3px solid #25f4ee;
+      outline-offset: 4px;
+    }
+
+    .tiktok-icon {
       position: relative;
-      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 25px;
+      height: 25px;
+      color: #ffffff;
+      font-size: 27px;
+      line-height: 1;
+      text-shadow:
+        -2px -2px 0 #25f4ee,
+        2px 2px 0 #fe2c55;
+    }
+
+    .usuario-conectado {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px 10px 10px;
+      border: 1px solid rgba(37, 244, 238, .45);
+      border-radius: 16px;
+      background: rgba(37, 244, 238, .10);
+    }
+
+    .avatar-usuario {
+      width: 52px;
+      height: 52px;
+      border: 3px solid #25f4ee;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #111111;
+    }
+
+    .avatar-sin-imagen {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 29px;
-      height: 29px;
-      border-radius: 9px;
-      color: #fff;
-      background: linear-gradient(135deg, var(--turquesa), #17191f 48%, var(--rosa));
-      box-shadow:
-        3px 3px 0 rgba(254,44,85,.8),
-        -2px -2px 0 rgba(37,244,238,.75);
+      color: #ffffff;
+      background: linear-gradient(135deg, #25f4ee, #fe2c55);
+      font-weight: 800;
     }
 
-    .icono-tiktok svg {
-      width: 18px;
-      height: 18px;
-      fill: currentColor;
-    }
-
-    .texto-boton {
-      position: relative;
-      z-index: 1;
-    }
-
-    .nota {
-      margin-top: 16px;
-      color: #7f8796;
-      font-size: 12px;
-    }
-
-    .tarjeta-presentacion {
-      position: relative;
-      z-index: 1;
+    .datos-usuario {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 410px;
-      padding: 45px 35px;
-      overflow: hidden;
-      border: 1px solid var(--borde);
-      border-radius: 30px;
-      background: linear-gradient(
-        145deg,
-        rgba(255,255,255,.13),
-        rgba(255,255,255,.035)
-      );
-      box-shadow: 0 25px 80px rgba(0,0,0,.35);
-      text-align: center;
+      align-items: flex-start;
+      gap: 3px;
     }
 
-    .tarjeta-presentacion::before,
-    .tarjeta-presentacion::after {
-      content: "";
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-      filter: blur(10px);
+    .estado-conectado {
+      color: #25f4ee;
+      font-size: .78rem;
+      font-weight: 700;
     }
 
-    .tarjeta-presentacion::before {
-      top: -90px;
-      right: -70px;
-      width: 240px;
-      height: 240px;
-      background: rgba(254,44,85,.18);
+    .datos-usuario strong {
+      color: inherit;
+      font-size: 1rem;
     }
 
-    .tarjeta-presentacion::after {
-      bottom: -100px;
-      left: -70px;
-      width: 240px;
-      height: 240px;
-      background: rgba(37,244,238,.14);
-    }
-
-    .circulo {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 154px;
-      height: 154px;
-      margin-bottom: 27px;
-      border: 8px solid #111318;
-      border-radius: 50%;
-      outline: 3px solid var(--turquesa);
-      background: linear-gradient(
-        135deg,
-        var(--turquesa) 0%,
-        #1b1d24 50%,
-        var(--rosa) 100%
-      );
-      box-shadow:
-        0 0 0 7px rgba(254,44,85,.55),
-        0 20px 40px rgba(0,0,0,.35);
-      font-size: 43px;
-      font-weight: 900;
-      letter-spacing: -3px;
-    }
-
-    .tarjeta-presentacion h2 {
-      position: relative;
-      z-index: 1;
-      margin-bottom: 8px;
-      font-size: 29px;
-    }
-
-    .tarjeta-presentacion p {
-      position: relative;
-      z-index: 1;
-      max-width: 250px;
-      color: var(--texto-suave);
-    }
-
-    .seccion {
-      width: min(calc(100% - 40px), var(--ancho));
-      margin: 0 auto;
-      padding: 90px 0;
-    }
-
-    .seccion-cabecera {
-      max-width: 650px;
-      margin-bottom: 38px;
-    }
-
-    .seccion h2 {
-      margin-bottom: 12px;
-      font-size: clamp(30px, 4vw, 45px);
-      letter-spacing: -1.5px;
-      line-height: 1.15;
-    }
-
-    .seccion-cabecera p {
-      color: var(--texto-suave);
-    }
-
-    .pasos {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .paso {
-      position: relative;
-      min-height: 230px;
-      padding: 28px;
-      overflow: hidden;
-      border: 1px solid var(--borde);
-      border-radius: var(--radio);
-      background: var(--tarjeta);
-      transition: transform .2s ease, border-color .2s ease;
-    }
-
-    .paso:hover {
-      transform: translateY(-5px);
-      border-color: rgba(37,244,238,.4);
-    }
-
-    .paso strong {
-      display: block;
-      margin-bottom: 25px;
-      color: var(--turquesa);
-      font-size: 17px;
-      letter-spacing: 1px;
-    }
-
-    .paso h3 {
-      margin-bottom: 10px;
-      font-size: 21px;
-    }
-
-    .paso p {
-      color: var(--texto-suave);
-      font-size: 14px;
-    }
-
-    .aviso {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 50px;
-      margin-top: 25px;
-      padding: 38px;
-      border: 1px solid rgba(37,244,238,.18);
-      border-radius: var(--radio);
-      background: linear-gradient(
-        110deg,
-        rgba(37,244,238,.1),
-        rgba(255,255,255,.035)
-      );
-    }
-
-    .aviso h2 {
-      margin: 0;
-      white-space: nowrap;
-      font-size: 28px;
-    }
-
-    .aviso p {
-      max-width: 620px;
-      color: var(--texto-suave);
-    }
-
-    .legal-resumen {
-      padding-top: 65px;
-      padding-bottom: 85px;
-    }
-
-    .legal-resumen p {
-      max-width: 620px;
-      margin-bottom: 24px;
-      color: var(--texto-suave);
-    }
-
-    .enlaces-legales {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .enlaces-legales a {
-      padding: 11px 16px;
-      border: 1px solid var(--borde);
-      border-radius: 10px;
-      color: #dfe4ed;
-      background: rgba(255,255,255,.045);
-      font-size: 13px;
-      transition: color .2s ease, border-color .2s ease, background .2s ease;
-    }
-
-    .enlaces-legales a:hover {
-      border-color: var(--turquesa);
-      color: var(--turquesa);
-      background: rgba(37,244,238,.08);
-    }
-
-    .pie {
-      border-top: 1px solid rgba(255,255,255,.09);
-      color: #818997;
-      background: #06070a;
-      font-size: 13px;
-    }
-
-    .pie-contenido {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      min-height: 90px;
-    }
-
-    .pie-enlaces {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .pie a:hover {
-      color: var(--turquesa);
-    }
-
-    @media (max-width: 850px) {
-      .hero {
-        grid-template-columns: 1fr;
-        gap: 45px;
-        min-height: auto;
-        padding-top: 70px;
-      }
-
-      .hero-contenido {
-        text-align: center;
-      }
-
-      .hero-descripcion {
-        margin-right: auto;
-        margin-left: auto;
-      }
-
-      .acciones {
-        justify-content: center;
-      }
-
-      .tarjeta-presentacion {
-        width: min(100%, 500px);
-        min-height: 350px;
-        margin: 0 auto;
-      }
-
-      .aviso {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 18px;
-      }
-
-      .aviso h2 {
-        white-space: normal;
-      }
-    }
-
-    @media (max-width: 680px) {
-      .contenedor,
-      .hero,
-      .seccion {
-        width: min(calc(100% - 30px), var(--ancho));
-      }
-
-      .barra-navegacion {
-        min-height: 70px;
-      }
-
-      .navegacion {
-        gap: 14px;
-        font-size: 12px;
-      }
-
-      .navegacion a:not(.boton-nav) {
-        display: none;
-      }
-
-      h1 {
-        font-size: clamp(39px, 12vw, 58px);
-        letter-spacing: -2.5px;
-      }
-
-      .hero-descripcion {
-        font-size: 16px;
-      }
-
-      .pasos {
-        grid-template-columns: 1fr;
-      }
-
-      .paso {
-        min-height: auto;
-      }
-
-      .seccion {
-        padding: 65px 0;
-      }
-
-      .aviso {
-        padding: 27px;
-      }
-
-      .pie-contenido {
-        align-items: flex-start;
-        flex-direction: column;
-        justify-content: center;
-        padding: 22px 0;
+    @media (max-width: 600px) {
+      .boton-tiktok {
+        width: 100%;
+        min-width: 0;
       }
     }
   </style>
 </head>
 
 <body>
-
   <header class="encabezado">
-    <div class="contenedor barra-navegacion">
-      <a class="logo" href="index.html" aria-label="Ir al inicio de Buen Dato">
-        <span class="logo-marca">BD</span>
-        <span>Buen Dato</span>
-      </a>
+    <a class="logo" href="index.html">Buen Dato</a>
 
-      <nav class="navegacion" aria-label="Navegación principal">
-        <a href="#como-funciona">Cómo funciona</a>
-        <a href="#seguridad">Seguridad</a>
-        <a href="#privacidad">Privacidad</a>
-
-        <a
-          class="boton-nav"
-          href="https://www.tiktok.com/v2/auth/authorize/?client_key=sbawogia7hdonkmslg&amp;response_type=code&amp;scope=user.info.basic%2Cvideo.upload%2Cuser.info.profile%2Cuser.info.stats%2Cvideo.list&amp;redirect_uri=https%3A%2F%2Fn8n.somosbuendato.com%2Fwebhook%2Ftiktok%2Fcallback&amp;buendato2026_v1"
-        >
-          Conectar cuenta
-        </a>
-      </nav>
-    </div>
+    <nav aria-label="Navegación principal">
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#privacidad">Privacidad</a>
+    </nav>
   </header>
 
   <main>
-
-    <section class="hero" aria-labelledby="titulo-principal">
+    <section class="hero">
       <div class="hero-contenido">
         <span class="etiqueta">Contenido útil para la comunidad</span>
 
-        <h1 id="titulo-principal">
-          Descubre y comparte
-          <span class="texto-gradiente">un buen dato.</span>
-        </h1>
+        <h1>Descubre y comparte un buen dato.</h1>
 
-        <p class="hero-descripcion">
-          Buen Dato es un espacio para encontrar recomendaciones,
-          ideas y contenido interesante compartido por personas como tú.
+        <p>
+          Buen Dato es una plataforma para encontrar recomendaciones,
+          ideas y contenido interesante compartido por la comunidad.
         </p>
 
-        <div class="acciones">
-          <a
-            class="boton-tiktok"
-            href="https://www.tiktok.com/v2/auth/authorize/?client_key=sbawogia7hdonkmslg&amp;response_type=code&amp;scope=user.info.basic%2Cvideo.upload%2Cuser.info.profile%2Cuser.info.stats%2Cvideo.list&amp;redirect_uri=https%3A%2F%2Fn8n.somosbuendato.com%2Fwebhook%2Ftiktok%2Fcallback&amp;buendato2026_v1"
-            aria-label="Continuar con TikTok"
-          >
-            <span class="icono-tiktok" aria-hidden="true">
-              <svg viewBox="0 0 24 24" role="img">
-                <path d="M16.6 3c.3 1.8 1.3 3.1 3.1 3.5v3.2c-1.5-.1-2.8-.6-4-1.4v6.6c0 4.4-3.1 6.9-6.9 6.9-3.5 0-5.8-2.5-5.8-5.6 0-3.5 2.8-5.9 6.3-5.9.4 0 .8 0 1.2.1v3.4c-.4-.1-.8-.2-1.2-.2-1.5 0-2.7 1-2.7 2.5 0 1.3 1 2.4 2.5 2.4 1.8 0 2.9-1.1 2.9-3.5V3h4.6z"/>
-              </svg>
-            </span>
-
-            <span class="texto-boton">Continuar con TikTok</span>
-          </a>
-        </div>
+        <!--
+          Este botón ya no utiliza href="/auth/tiktok".
+          La autorización se abre dentro de una ventana emergente.
+        -->
+        <button
+          id="botonTikTok"
+          class="boton boton-tiktok"
+          type="button"
+        >
+          <span class="tiktok-icon" aria-hidden="true">♪</span>
+          <span>Continuar con TikTok</span>
+        </button>
 
         <p class="nota">
-          Conexión segura mediante la autorización oficial de TikTok.
+          Al continuar, podrás autorizar de forma segura la conexión con TikTok.
         </p>
       </div>
 
-      <div class="tarjeta-presentacion" aria-label="Presentación de Buen Dato">
+      <div
+        class="tarjeta-presentacion"
+        aria-label="Presentación de Buen Dato"
+      >
         <div class="circulo">BD</div>
         <h2>Buen Dato</h2>
-        <p>
-          Recomendaciones que vale la pena conocer,
-          compartir y guardar.
-        </p>
+        <p>Recomendaciones que vale la pena conocer.</p>
       </div>
     </section>
 
-    <section id="como-funciona" class="seccion" aria-labelledby="titulo-proceso">
-      <div class="seccion-cabecera">
-        <span class="etiqueta">Proceso sencillo</span>
-
-        <h2 id="titulo-proceso">Todo comienza con un buen dato.</h2>
-
-        <p>
-          Conecta tu cuenta y disfruta de una experiencia sencilla,
-          clara y pensada para la comunidad.
-        </p>
-      </div>
+    <section id="como-funciona" class="seccion">
+      <span class="etiqueta">Proceso sencillo</span>
+      <h2>¿Cómo funciona?</h2>
 
       <div class="pasos">
         <article class="paso">
@@ -726,37 +210,26 @@
           <strong>03</strong>
           <h3>Descubre</h3>
           <p>
-            Accede a una experiencia de recomendaciones y contenido
-            útil para ti.
+            Accede a una experiencia de recomendaciones y contenido útil.
           </p>
         </article>
       </div>
     </section>
 
-    <section id="seguridad" class="seccion aviso" aria-labelledby="titulo-seguridad">
-      <div>
-        <span class="etiqueta">Protección de tus datos</span>
-        <h2 id="titulo-seguridad">Integración segura.</h2>
-      </div>
-
+    <section class="seccion aviso">
+      <h2>Integración segura</h2>
       <p>
         Esta aplicación utiliza la autorización oficial de TikTok.
         No solicitamos contraseñas ni mostramos credenciales privadas.
-        Tú decides en todo momento qué permisos deseas conceder.
       </p>
     </section>
 
-    <section id="privacidad" class="seccion legal-resumen" aria-labelledby="titulo-legal">
-      <div class="seccion-cabecera">
-        <span class="etiqueta">Transparencia</span>
-
-        <h2 id="titulo-legal">Información legal</h2>
-
-        <p>
-          Consulta cómo protegemos tus datos, cómo utilizamos la información
-          autorizada y cómo puedes solicitar su eliminación.
-        </p>
-      </div>
+    <section id="privacidad" class="seccion legal-resumen">
+      <h2>Información legal</h2>
+      <p>
+        Consulta cómo protegemos tus datos y cómo puedes solicitar
+        su eliminación.
+      </p>
 
       <div class="enlaces-legales">
         <a href="privacidad.html">Política de privacidad</a>
@@ -764,26 +237,207 @@
         <a href="eliminacion-datos.html">Eliminar mis datos</a>
       </div>
     </section>
-
   </main>
 
   <footer class="pie">
-    <div class="contenedor pie-contenido">
-      <p>
-        © <span id="anio"></span> Buen Dato. Todos los derechos reservados.
-      </p>
+    <p>
+      © <span id="anio"></span> Buen Dato. Todos los derechos reservados.
+    </p>
 
-      <div class="pie-enlaces">
-        <a href="privacidad.html">Privacidad</a>
-        <a href="terminos.html">Términos</a>
-        <a href="eliminacion-datos.html">Eliminar datos</a>
-      </div>
+    <div>
+      <a href="privacidad.html">Privacidad</a>
+      <a href="terminos.html">Términos</a>
+      <a href="eliminacion-datos.html">Eliminar datos</a>
     </div>
   </footer>
 
   <script>
-    document.getElementById("anio").textContent = new Date().getFullYear();
-  </script>
+    /*
+      CONFIGURACIÓN
+    */
 
+    const CLIENT_KEY = "sbawogia7hdonkmslg";
+
+    const REDIRECT_URI =
+      "https://n8n.somosbuendato.com/webhook/tiktok/callback";
+
+    const ORIGEN_N8N =
+      "https://n8n.somosbuendato.com";
+
+
+    /*
+      Año automático del pie de página
+    */
+
+    const elementoAnio = document.getElementById("anio");
+
+    if (elementoAnio) {
+      elementoAnio.textContent = new Date().getFullYear();
+    }
+
+
+    /*
+      Abrir autorización de TikTok en un popup
+    */
+
+    const botonTikTok = document.getElementById("botonTikTok");
+
+    if (botonTikTok) {
+      botonTikTok.addEventListener("click", iniciarLoginTikTok);
+    }
+
+    function iniciarLoginTikTok() {
+      if (!CLIENT_KEY || CLIENT_KEY === "sbawogia7hdonkmslg") {
+        alert(
+          "Falta configurar la clave de cliente de TikTok."
+        );
+        return;
+      }
+
+      /*
+        Se genera un estado único para identificar la autorización.
+        El mismo valor podrá validarse posteriormente en n8n.
+      */
+      const estado = generarEstadoSeguro();
+
+      sessionStorage.setItem("tiktok_oauth_state", estado);
+
+      const parametros = new URLSearchParams({
+        client_key: CLIENT_KEY,
+        response_type: "code",
+        scope: "user.info.basic",
+        redirect_uri: REDIRECT_URI,
+        state: estado
+      });
+
+      const urlAutorizacion =
+        "https://www.tiktok.com/v2/auth/authorize/?" +
+        parametros.toString();
+
+      const ancho = 600;
+      const alto = 720;
+
+      const izquierda =
+        window.screenX + (window.outerWidth - ancho) / 2;
+
+      const arriba =
+        window.screenY + (window.outerHeight - alto) / 2;
+
+      const popup = window.open(
+        urlAutorizacion,
+        "TikTokLogin",
+        [
+          "width=" + ancho,
+          "height=" + alto,
+          "left=" + izquierda,
+          "top=" + arriba,
+          "resizable=yes",
+          "scrollbars=yes"
+        ].join(",")
+      );
+
+      if (!popup) {
+        alert(
+          "El navegador bloqueó la ventana emergente. " +
+          "Permite las ventanas emergentes para este sitio."
+        );
+        return;
+      }
+
+      popup.focus();
+    }
+
+    function generarEstadoSeguro() {
+      if (window.crypto && window.crypto.randomUUID) {
+        return window.crypto.randomUUID();
+      }
+
+      return (
+        Date.now().toString(36) +
+        Math.random().toString(36).substring(2)
+      );
+    }
+
+
+    /*
+      Recibir desde n8n el nombre y el avatar del usuario.
+      Esta parte funcionará cuando Respond to Webhook
+      envíe el mensaje correspondiente.
+    */
+
+    window.addEventListener("message", function(event) {
+      if (event.origin !== ORIGEN_N8N) {
+        return;
+      }
+
+      if (
+        !event.data ||
+        event.data.tipo !== "TIKTOK_LOGIN_EXITOSO"
+      ) {
+        return;
+      }
+
+      const usuario = event.data.usuario || {};
+
+      mostrarUsuarioConectado(usuario);
+    });
+
+
+    function mostrarUsuarioConectado(usuario) {
+      const nombre =
+        usuario.display_name || "Usuario conectado";
+
+      const avatar =
+        usuario.avatar_url || "";
+
+      const boton = document.getElementById("botonTikTok");
+
+      if (!boton) {
+        return;
+      }
+
+      const contenedor = document.createElement("div");
+
+      contenedor.className = "usuario-conectado";
+
+      if (avatar) {
+        const imagen = document.createElement("img");
+
+        imagen.className = "avatar-usuario";
+        imagen.src = avatar;
+        imagen.alt = "Avatar de " + nombre;
+
+        contenedor.appendChild(imagen);
+      } else {
+        const avatarIniciales = document.createElement("div");
+
+        avatarIniciales.className =
+          "avatar-usuario avatar-sin-imagen";
+
+        avatarIniciales.textContent = "BD";
+
+        contenedor.appendChild(avatarIniciales);
+      }
+
+      const datos = document.createElement("div");
+
+      datos.className = "datos-usuario";
+
+      const estado = document.createElement("span");
+
+      estado.className = "estado-conectado";
+      estado.textContent = "✓ Conectado correctamente";
+
+      const nombreElemento = document.createElement("strong");
+
+      nombreElemento.textContent = nombre;
+
+      datos.appendChild(estado);
+      datos.appendChild(nombreElemento);
+      contenedor.appendChild(datos);
+
+      boton.replaceWith(contenedor);
+    }
+  </script>
 </body>
 </html>
